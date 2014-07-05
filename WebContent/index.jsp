@@ -8,5 +8,10 @@
 </head>
 <body>
 	<h1><strong>LADAR HOME PAGE</strong></h1>
+	<div>
+		<input type="button" value="How It Works"/>
+		<input type="button" value="Sign-in"/>
+		<input type="button" value="Contact Us"/>
+	</div>
 </body>
 </html>
