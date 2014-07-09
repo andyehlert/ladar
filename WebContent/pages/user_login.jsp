@@ -1,12 +1,27 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>User Sign-in</title>
-</head>
-<body>
-	<h1><strong>User Sign-in Page</strong></h1>
-</body>
-</html>
+<div>
+
+	<h3>Sign-in</h3>
+	<form accept-charset="utf-8" class="user-login">
+		<p>
+			<!-- User login form. -->
+			<label for="user-email">Email Address:</label>
+			<input type="text" class="login-input" id="login-username" name="user-email">
+			<label for="user-password">Password:</label>
+			<input type="text" class="login-input" id="login-password" name="user-password">
+			<button type="submit" class="login-button">Submit</button>
+		</p>
+	</form>
+	
+	<p>Not currently registered? To sign up <a href="javascript:void(0)" id="su-link">click here</a>.</p>
+	
+</div>
+
+<script>
+	$('#su-link').on("click", function() {
+		$('.content').load("pages/sign-up.jsp");
+	});
+	
+	$('.login-button').on("click", function() {
+		$('.content').load("pages/user_profile.jsp");
+	});
+</script>

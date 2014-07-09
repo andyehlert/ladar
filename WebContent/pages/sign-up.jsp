@@ -1,12 +1,30 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>User Sign-up</title>
-</head>
-<body>
-	<h1><strong>User Sign-Up Page</strong></h1>
-</body>
-</html>
+<div>
+
+	<h3><strong>User Sign-Up</strong></h3>
+	<form>
+		<p>
+			<label for="signup-email">Email Address:</label>
+			<input type="text" name="signup-email" id="signup-email">
+		</p>
+		<p>
+			<label for="signup-email2">Repeat Email Address:</label>
+			<input type="text" name="signup-email2" id="signup-email2">
+		</p>
+		<p>
+			<label for="signup-password">Password:</label>
+			<input type="text" name="signup-password" id="signup-password">
+		</p>
+		<p>
+			<label for="signup-password2">Repeat Password:</label>
+			<input type="text" name="signup-password2" id="signup-password2">
+		</p>
+		<p><button type="submit" class="signup-button">Sign Up</button></p>
+	</form>
+	
+</div>
+
+<script>
+	$('.signup-button').on("click", function() {
+		$('.content').load("pages/user_profile.jsp");
+	});
+</script>

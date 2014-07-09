@@ -1,1 +1,27 @@
 @CHARSET "ISO-8859-1";
+
+.header {
+	background: #000000;
+	color: #FFFFFF;
+}
+
+.menu-button {
+	float: center;
+	position: relative;
+	color: #000000;
+	background-color: #FFFFFF;
+	border-radius: 3px 3px 3px 3px;
+	left: 40%;
+}
+
+.header h1 {
+	float: center;
+	position: relative;
+	left: 45%;
+}
+
+.content {
+	float: center;
+	position: relative;
+	left: 35%;
+}
