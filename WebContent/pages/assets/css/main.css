@@ -8,7 +8,7 @@
  */
 
 body {
-    background-color: #F0F0F0;
+    background-color: #64eeaa;
     font-family: "Open Sans", Helvetica, Arial, sans-serif;
     font-weight: 300;
     font-size: 16px;
@@ -173,7 +173,7 @@ i {
 #headerwrap {
 
 	
-	margin-top: -20px;
+	margin-top: -10px;
 	padding-top:200px;
 	background-attachment: relative;
 	background-position: center center;
@@ -227,4 +227,12 @@ i {
     1px -1px 0 #fff,
     -1px 1px 0 #fff,
     1px 1px 0 #fff;  
+}
+
+.header-btn {
+	position:relative;
+	margin: 8px;
+	color: white;
+	background-color: #284c74;
+	border-color: white;
 }
