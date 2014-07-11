@@ -236,3 +236,59 @@ i {
 	background-color: #284c74;
 	border-color: white;
 }
+
+.header-btn:hover {
+	border-color: #64eeaa;
+}
+
+.site-page {
+	color: white;
+	width:100%;
+}
+
+.login-page {
+	color: white;
+	width:100%;
+}
+
+.site-page .inner-page {
+	color: white;
+	margin-top: 10%;
+}
+
+.site-page .inner-page ul {
+	color: white;
+	margin-left:40%;
+}
+
+.site-page .inner-page p {
+	color: white;
+	text-align:center;
+}
+
+.login-page .inner-page {
+	color: white;
+	margin-top: 10%;
+	text-align: center;
+}
+
+.site-page h3, .login-page h3 {
+	color: white;
+	text-decoration: underline;
+}
+
+#su-link {
+	color: #284c74;
+}
+
+#si-btn2 {
+	border-color: #284c74;
+}
+
+#si-btn {
+	border-color: #284c74;
+}
+
+#si-btn:hover {
+	color: #64eeaa;
+}
