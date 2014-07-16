@@ -1,26 +1,70 @@
 /**
  * 
  */
-
 function LoadPage() {
 	
-	$('.menu-button').unbind("click");
-	
-	$('#si-button').on("click", function() {
-		$('.content').load("pages/user_login.jsp");
-		LoadPage();
-		return false;
+	$('#hiw-btn').on("click", function() {
+		$('#page-content').load("pages/how_it_works.jsp", function() {
+			LoadPage();
+		});
 	});
 	
-	$('#hiw-button').on("click", function() {
-		$('.content').load("pages/how_it_works.jsp");
-		LoadPage();
-		return false;
+	$('#au-btn').on("click", function() {
+		$('#page-content').load("pages/landing.jsp", function() {
+			LoadPage();
+		});
 	});
 	
-	$('#cu-button').on("click", function() {
-		$('.content').load("pages/contact_us.jsp");
-		LoadPage();
-		return false;
+	$('#logo').on("click", function() {
+		$('#page-content').load("pages/landing.jsp", function() {
+			LoadPage();
+		});
 	});
+	
+	$('#cu-btn').on("click", function() {
+		$('#page-content').load("pages/contact_us.jsp", function() {
+			LoadPage();
+		});
+	});
+	
+	$('#si-btn').on("click", function() {
+		$('#page-content').load("pages/user_login.jsp", function() {
+			LoadPage();
+		});
+	});
+	
+	$('#si-btn2').on("click", function() {
+		$('#page-content').load("pages/user_profile.jsp", function() {
+			LoadPage();
+		});
+	});
+	
+	$('#btn-signup').on("click", function() {
+		$('#page-content').load("pages/sign-up.jsp", function() {
+			LoadPage();
+		});
+	});
+	
+	$('#su-link').on("click", function() {
+		$('#page-content').load("pages/sign-up.jsp", function() {
+			LoadPage();
+		});
+	});
+	
+	$('#request-btn').on("click", function() {
+		$('#request-match').css("display", "block");
+		$('#next-request-match').css("display", "none");
+		$('#request-accept').css("display", "none");
+	});
+}
+
+function acceptLink() {
+	$('#request-match').css("display", "none");
+	$('#next-request-match').css("display", "none");
+	$('#request-accept').css("display", "block");
+}
+
+function declineLink() {
+	$('#request-match').css("display", "none");
+	$('#next-request-match').css("display", "block");
 }

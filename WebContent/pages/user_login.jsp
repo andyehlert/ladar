@@ -13,7 +13,7 @@
 			</p>
 		</form>
 	
-		<p>Not currently registered? To sign up <a href="javascript:void(0)" id="su-link">click here</a>.</p>
+		<p>Not currently registered? <a href="javascript:void(0)" id="su-link">Sign up</a></p>
 	</div>
 	
 </div>

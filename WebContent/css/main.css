@@ -1,27 +1,323 @@
-@CHARSET "ISO-8859-1";
+/*
+ * Author: Jhonnatan Rodriguez
+ * 
+ * 2014-05-15
+ * Bitances.com
+ * Version: 1.0
+ * 
+ */
 
-.header {
-	background: #000000;
-	color: #FFFFFF;
+body {
+    background-color: #64eeaa;
+    font-family: "Open Sans", Helvetica, Arial, sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    color: #555;
+    line-height: 20px;
+
+    -webkit-font-smoothing: antialiased;
+    -webkit-overflow-scrolling: touch;
+	-webkit-font-smoothing: antialiased;
 }
 
-.menu-button {
-	float: center;
-	position: relative;
-	color: #000000;
-	background-color: #FFFFFF;
-	border-radius: 3px 3px 3px 3px;
-	left: 40%;
+/* Titles */
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Open Sans", Helvetica, Arial, sans-serif;
+    font-weight: 300;
+    text-align: center;
+    color: #333;
 }
 
-.header h1 {
-	float: center;
-	position: relative;
-	left: 45%;
+h1 {
+	font-size: 40px;
+	font-family: 'proxima-nova', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-.content {
-	float: center;
-	position: relative;
-	left: 35%;
+h3 {
+	color: #95a5a6;
+	font-weight: 400;
+}
+
+h4 {
+	color: #95a5a6;
+	font-weight: 400;
+	font-size: 20px;
+}
+
+/* Paragraph & Typographic */
+p {
+    line-height: 28px;
+    margin-bottom: 25px;
+    font-size: 16px;
+}
+
+.centered {
+    text-align: center;
+}
+
+/* Links */
+a {
+    color: #3498db;
+    word-wrap: break-word;
+
+    -webkit-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -moz-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -ms-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -o-transition: color 0.1s ease-in, background 0.1s ease-in;
+    transition: color 0.1s ease-in, background 0.1s ease-in;
+}
+
+a:hover,
+a:focus {
+    color: #7b7b7b;
+    text-decoration: none;
+    outline: 0;
+}
+
+a:before,
+a:after {
+    -webkit-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -moz-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -ms-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -o-transition: color 0.1s ease-in, background 0.1s ease-in;
+    transition: color 0.1s ease-in, background 0.1s ease-in;
+}
+
+ hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+.navbar-default {
+	background-color: #3498db;
+	border-color: transparent;
+}
+
+.navbar-default .navbar-brand {
+	color: #FFF;
+    
+}
+
+.navbar-default .navbar-nav > li > a {
+	color: #FFF;
+}
+
+.navbar-default .navbar-brand  span {
+    color: #f26743;
+
+
+}
+
+.navbar-brand{
+    font-size: 21px !important;
+}
+
+/* Helpers */
+
+.mt {
+	margin-top: 40px;
+	margin-bottom: 40px;
+}
+
+.form-control {
+	height: 50px;
+	font-size: 18px;
+	width: 280px;
+}
+
+.inp{
+
+    box-shadow: 0 1px 0px #eee inset;
+    border-radius: 2px;
+    border: none;
+}
+
+.bt{
+    background-color: rgba(235, 86, 53, 1.0);
+    margin-left: 4px;
+    height: 50px;
+    border: none;
+    border-radius: 4px;
+	color: white;
+
+	border: 1px solid rgba(235, 86, 53, 1.0) !important;
+	-webkit-font-smoothing: antialiased;
+	font-family: "Open Sans", Helvetica, Arial, sans-serif;
+}
+
+
+i {
+	margin: 8px;
+	color: #3498db; 
+}
+
+
+/* HeaderWrap */
+
+/* http://themeforest.unitedthemes.com/themes/brooklyn/yellow/images/parallax-banner-1.jpg */
+/* http://startbootstrap.com/templates/stylish-portfolio/img/bg.jpg */
+
+
+
+
+
+.background{
+	background-color: #64eeaa;
+    background: #64eeaa url(/assets/back.png) no-repeat center top; 
+    
+}
+#headerwrap {
+
+	
+	margin-top: -10px;
+	padding-top:200px;
+	background-attachment: relative;
+	background-position: center center;
+	min-height: 744px;
+	width: 100%;
+	
+    -webkit-background-size: 100%;
+    -moz-background-size: 100%;
+    -o-background-size: 100%;
+    background-size: 114%;
+
+	/*
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+	*/
+}
+
+#headerwrap h1 {
+	margin-top: 60px;
+	margin-bottom: 15px;
+	color: white;
+	font-size: 45px;
+	font-weight: 300;
+	letter-spacing: 1px;
+
+}
+
+#headerwrap h2{
+	color: white;
+}
+
+#signup-form {
+	text-align: center;
+}
+
+#btn-signup {
+	background-color: #284c74;
+	border-color: #284c74 !important;
+}
+
+#logo, #header-btns a {
+	color: #fff;
+}
+
+#at-sign {
+	color: #284c74;
+	text-shadow:
+    -1px -1px 0 #fff,
+    1px -1px 0 #fff,
+    -1px 1px 0 #fff,
+    1px 1px 0 #fff;  
+}
+
+.header-btn {
+	position:relative;
+	margin: 8px;
+	color: white;
+	background-color: #284c74;
+	border-color: white;
+}
+
+.header-btn:hover {
+	border-color: #64eeaa;
+}
+
+.site-page {
+	color: white;
+	width:100%;
+}
+
+.login-page {
+	color: white;
+	width:100%;
+}
+
+.site-page .inner-page {
+	color: white;
+	margin-top: 10%;
+}
+
+.site-page .inner-page ul {
+	color: white;
+	margin-left:40%;
+}
+
+.site-page .inner-page p {
+	color: white;
+	text-align:center;
+}
+
+.login-page .inner-page {
+	color: white;
+	margin-top: 10%;
+	text-align: center;
+}
+
+.site-page h3, .login-page h3 {
+	color: white;
+	text-decoration: underline;
+}
+
+#su-link, .response-link {
+	color: #284c74;
+	text-decoration: underline;
+}
+
+#si-btn, #si-btn2, #request-btn {
+	border-color: #284c74;
+}
+
+#si-btn:hover {
+	color: #64eeaa;
+}
+
+.su-label {
+	display:block;
+}
+
+.su-input {
+	display:inline-block;
+}
+
+.request-form {
+	text-align:center;
+}
+
+.request-form button {
+	display:inline-block;
+	float:middle;
+}
+
+.request-form select {
+	background-color: #284c74;
+	color: white;
+	border-color: #284c74;
+	border-radius: 3px;
+}
+
+input:focus {
+	border-color: #284c74 !important;
+}
+
+div#request-match, div#next-request-match, div#request-accept {
+	display: none;
 }
