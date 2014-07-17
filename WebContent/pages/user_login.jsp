@@ -1,14 +1,14 @@
 <div class="login-page">
 
 	<div class="inner-page">
-		<h3>Sign in</h3>
+		<h3><strong>Sign in</strong></h3>
 		<form accept-charset="utf-8" class="user-login">
 			<p>
 				<!-- User login form. -->
 				<label for="user-email">Email Address:</label>
-				<input type="text" class="login-input" id="login-username" name="user-email">
+				<input type="email" class="login-input" id="login-username" name="user-email">
 				<label for="user-password">Password:</label>
-				<input type="text" class="login-input" id="login-password" name="user-password">
+				<input type="password" class="login-input" id="login-password" name="user-password">
 				<button type="button" class="btn header-btn" id="si-btn2">Sign in</button>
 			</p>
 		</form>

@@ -241,19 +241,23 @@ i {
 	border-color: #64eeaa;
 }
 
-.site-page {
+.site-page, .login-page {
 	color: white;
 	width:100%;
+	height:100%;
+	position:relative;
+	margin:auto;
+	display:block;
 }
 
-.login-page {
+.site-page .inner-page, .login-page .inner-page {
 	color: white;
-	width:100%;
-}
-
-.site-page .inner-page {
-	color: white;
-	margin-top: 10%;
+	width: 45%;
+	margin: auto;
+	margin-top: 4%;
+	text-align: center;
+	position: relative;
+	display: block;
 }
 
 .site-page .inner-page ul {
@@ -266,14 +270,8 @@ i {
 	text-align:center;
 }
 
-.login-page .inner-page {
-	color: white;
-	margin-top: 10%;
-	text-align: center;
-}
-
 .site-page h3, .login-page h3 {
-	color: white;
+	color: #284c74;
 	text-decoration: underline;
 }
 
@@ -282,7 +280,7 @@ i {
 	text-decoration: underline;
 }
 
-#si-btn, #si-btn2, #request-btn {
+#si-btn, #si-btn2, #request-btn, #save-btn {
 	border-color: #284c74;
 }
 
@@ -304,10 +302,9 @@ i {
 
 .request-form button {
 	display:inline-block;
-	float:middle;
 }
 
-.request-form select {
+.request-form select, #trans-preferences select, #trans-preferences input[type=checkbox] {
 	background-color: #284c74;
 	color: white;
 	border-color: #284c74;
@@ -320,4 +317,67 @@ input:focus {
 
 div#request-match, div#next-request-match, div#request-accept {
 	display: none;
+}
+
+#page-content {
+	position:absolute;
+	width: 100%;
+	height:100%;
+	margin:auto;
+	display:block;
+}
+.user-login, .user-login p {
+	width: 100%;
+	height:100%;
+	margin:auto;
+	display:block;
+}
+
+
+#transactions {
+	float:right;
+	width:50%;
+	position:relative;
+}
+
+#user-preferences {
+	float:left;
+	width:50%;
+	position:relative;
+	border-right: 3px solid #284c74;
+}
+
+#trans-preferences p input, #trans-preferences p select {
+	display:block;
+	margin:auto;
+}
+
+#trans-preferences p {
+	text-align:center;
+	margin-bottom:10px;
+}
+
+
+#inner-pref, #request-match, #next-request-match, #request-accept {
+	width:75%;
+	margin-top: 5px;
+}
+
+#inner-profile {
+	clear:both;
+	width:75%;
+}
+
+#user-preferences h4, #request-match h4, #next-request-match h4, #request-accept h4 {
+	text-decoration: underline;
+	color:#284c74;
+	top: 10px;
+}
+
+#checkboxes-pref input {
+	display:inline !important;
+}
+
+#user-preferences label {
+	margin:2px;
 }
