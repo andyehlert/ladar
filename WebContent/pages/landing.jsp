@@ -2,8 +2,14 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-7">
-					<h1 id="copy">Arbitrary Copy Here.</h1>
-					<h2>The Slogan We Create<br>Will Go Right Here.</h2>
+					<h1 id="copy">Bitcoin simplified</h1>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<h2>Join the waiting list for our private beta below!</h2>
 
 					<form class="form-inline" id="signup-form" role="form">
 					  <div class="form-group">
