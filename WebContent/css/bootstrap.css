@@ -1933,7 +1933,7 @@ output {
   padding: 6px 12px;
   font-size: 14px;
   line-height: 1.428571429;
-  color: #555555;
+  color: #eea057;
   vertical-align: middle;
   background-color: #ffffff;
   background-image: none;
@@ -1953,20 +1953,20 @@ output {
 }
 
 .form-control:-moz-placeholder {
-  color: #999999;
+  color: #555555;
 }
 
 .form-control::-moz-placeholder {
-  color: #999999;
-  opacity: 1;
+  color: #555555;
+  opacity: .5;
 }
 
 .form-control:-ms-input-placeholder {
-  color: #999999;
+  color: #555555;
 }
 
 .form-control::-webkit-input-placeholder {
-  color: #999999;
+  color: #cbcbcb;
 }
 
 .form-control[disabled],
@@ -2277,7 +2277,7 @@ textarea.input-lg {
 
 .btn:hover,
 .btn:focus {
-  color: #64eeaa;
+  color: white;
   text-decoration: none;
 }
 
