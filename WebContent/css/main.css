@@ -8,7 +8,7 @@
  */
 
 body {
-    background-color: #64eeaa;
+    background-color: #f9faf3;
     font-family: "Open Sans", Helvetica, Arial, sans-serif;
     font-weight: 300;
     font-size: 16px;
@@ -57,7 +57,7 @@ p {
 
 /* Links */
 a {
-    color: #3498db;
+    color: #95a5a6;
     word-wrap: break-word;
 
     -webkit-transition: color 0.1s ease-in, background 0.1s ease-in;
@@ -93,17 +93,17 @@ a:after {
 }
 
 .navbar-default {
-	background-color: #3498db;
+	background-color: #a6a296;
 	border-color: transparent;
 }
 
 .navbar-default .navbar-brand {
-	color: #FFF;
+	color: #fff;
     
 }
 
 .navbar-default .navbar-nav > li > a {
-	color: #FFF;
+	color: #fff;
 }
 
 .navbar-default .navbar-brand  span {
@@ -152,7 +152,7 @@ a:after {
 
 i {
 	margin: 8px;
-	color: #3498db; 
+	color: #eea057; 
 }
 
 
@@ -166,8 +166,8 @@ i {
 
 
 .background{
-	background-color: #64eeaa;
-    background: #64eeaa url(/assets/back.png) no-repeat center top; 
+	background-color: #f9faf3;
+    background: #f9faf3 url(/assets/back.png) no-repeat center top; 
     
 }
 #headerwrap {
@@ -196,15 +196,15 @@ i {
 #headerwrap h1 {
 	margin-top: 60px;
 	margin-bottom: 15px;
-	color: white;
-	font-size: 100px;
+	color: #eea057;
+	font-size: 90px;
 	font-weight: 300;
-	letter-spacing: 1px;
+	letter-spacing: 0px;
 
 }
 
 #headerwrap h2{
-	color: white;
+	color: #a6a296;
 }
 
 #signup-form {
@@ -212,37 +212,42 @@ i {
 }
 
 #btn-signup {
-	background-color: #284c74;
-	border-color: #284c74 !important;
+	background-color: #eea057;
+	border-color: #eea057 !important;
 }
 
-#logo, #header-btns a {
-	color: #fff;
+#logo {
+	color: #f9faf3;
+}
+
+#header-btns a {
+	color: #f9faf3;
 }
 
 #at-sign {
-	color: #284c74;
+	color: #eea057;
 	text-shadow:
-    -1px -1px 0 #fff,
-    1px -1px 0 #fff,
-    -1px 1px 0 #fff,
-    1px 1px 0 #fff;  
+    -1px -1px 0 #f9faf3,
+    1px -1px 0 #f9faf3,
+    -1px 1px 0 #f9faf3,
+    1px 1px 0 #f9faf3;  
 }
 
 .header-btn {
 	position:relative;
 	margin: 8px;
-	color: white;
-	background-color: #284c74;
-	border-color: white;
+	color: #f9faf3;
+	background-color: #a6a296;
+	border-color: #f9faf3;
 }
 
 .header-btn:hover {
-	border-color: #64eeaa;
+	border-color: #eea057;
+	color: #f9faf3;
 }
 
 .site-page, .login-page {
-	color: white;
+	color: #a6a296;
 	width:100%;
 	height:100%;
 	position:relative;
@@ -251,7 +256,7 @@ i {
 }
 
 .site-page .inner-page, .login-page .inner-page {
-	color: white;
+	color: #a6a296;
 	width: 45%;
 	margin: auto;
 	margin-top: 4%;
@@ -261,31 +266,31 @@ i {
 }
 
 .site-page .inner-page ul {
-	color: white;
+	color: #a6a296;
 	margin-left:40%;
 }
 
 .site-page .inner-page p {
-	color: white;
+	color: #a6a296;
 	text-align:center;
 }
 
 .site-page h3, .login-page h3 {
-	color: #284c74;
+	color: #eea057;
 	text-decoration: underline;
 }
 
 #su-link, .response-link {
-	color: #284c74;
+	color: #eea057;
 	text-decoration: underline;
 }
 
 #si-btn, #si-btn2, #request-btn, #save-btn {
-	border-color: #284c74;
+	border-color: #a6a296;
 }
 
 #si-btn:hover {
-	color: #64eeaa;
+	color: #eea057;
 }
 
 .su-label {
@@ -305,14 +310,14 @@ i {
 }
 
 .request-form select, #trans-preferences select, #trans-preferences input[type=checkbox] {
-	background-color: #284c74;
+	background-color: #eea057;
 	color: white;
-	border-color: #284c74;
+	border-color: #eea057;
 	border-radius: 3px;
 }
 
 input:focus {
-	border-color: #284c74 !important;
+	border-color: #eea057 !important;
 }
 
 div#request-match, div#next-request-match, div#request-accept {
@@ -344,7 +349,7 @@ div#request-match, div#next-request-match, div#request-accept {
 	float:left;
 	width:50%;
 	position:relative;
-	border-right: 3px solid #284c74;
+	border-right: 3px solid #a6a296;
 }
 
 #trans-preferences p input, #trans-preferences p select {
@@ -370,12 +375,13 @@ div#request-match, div#next-request-match, div#request-accept {
 
 #user-preferences h4, #request-match h4, #next-request-match h4, #request-accept h4 {
 	text-decoration: underline;
-	color:#284c74;
+	color:#a6a296;
 	top: 10px;
 }
 
 #checkboxes-pref input {
 	display:inline !important;
+	
 }
 
 #user-preferences label {
