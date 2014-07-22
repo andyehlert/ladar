@@ -7,22 +7,23 @@
 				<label class="su-label" for="signup-email">Email Address:</label>
 				<input class="su-input" type="email" name="signup-email" id="signup-email">
 			</p>
-			<p>
+			<!--  <p>
 				<label class="su-label" for="signup-email2">Repeat Email Address:</label>
 				<input class="su-input" type="email" name="signup-email2" id="signup-email2">
+			</p>-->
+			<p>
+				<label class="su-label" for="wallet-addr">Bitcoin Wallet Address:</label>
+				<input class="su-input" type="text" name="wallet-addr" id="wallet-addr">
 			</p>
 			<p>
 				<label class="su-label" for="signup-password">Password:</label>
 				<input class="su-input" type="text" name="signup-password" id="signup-password">
 			</p>
 			<p>
-				<label class="su-label" for="signup-password2">Repeat Password:</label>
+				<label class="su-label" for="signup-password2">Confirm Password:</label>
 				<input class="su-input" type="text" name="signup-password2" id="signup-password2">
 			</p>
-			<p>
-				<label class="su-label" for="wallet-addr">Bitcoin Wallet Address:</label>
-				<input class="su-input" type="text" name="wallet-addr" id="wallet-addr">
-			</p>
+
 			<p><button type="button" class="btn header-btn" id="si-btn2">Sign Up</button></p>
 		</form>
 	</div>
