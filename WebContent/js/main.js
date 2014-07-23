@@ -26,10 +26,17 @@ function LoadPage() {
 			LoadPage();
 		});
 	});
+}
+
+function AddToBeta() {
+	var formData = $('#signup-form').serialize();
 	
-	$('#btn-signup').on("click", function() {
-//		$('#page-content').load("pages/sign-up.jsp", function() {
-//			LoadPage();
-//		});
+	$.ajax({
+		url: "form_acceptor.jsp",
+		type: "POST",
+		data: formData,
+		async: false
 	});
+	$('#page-content').load("pages/signup_success.jsp");
+	return false;
 }

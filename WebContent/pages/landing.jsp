@@ -10,11 +10,11 @@
 					<br>
 					<h2>Join the waiting list for our private beta below!</h2>
 
-					<form class="form-inline" id="signup-form" role="form" action="form_acceptor.jsp">
+					<form class="form-inline" id="signup-form" role="form" action="JavaScript:AddToBeta()">
 					  <div class="form-group">
 					    <input type="email" class="form-control inp" id="exampleInputEmail1" name="email" placeholder="Enter your email address">
 					  </div>
-					  <button type="button" id="btn-signup" class="btn  btn-lg bt">Join!</button>
+					  <button type="submit" id="btn-signup" class="btn  btn-lg bt">Join!</button>
 					</form>					
 				</div><!-- /col-lg-6 -->
 
