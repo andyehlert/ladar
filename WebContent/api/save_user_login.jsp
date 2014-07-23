@@ -36,6 +36,11 @@ try {
 		out.println(myDataField);
 		out.println();
 	}
+
+	myResultSet.close();
+	myStatement.close();
+	myConnection.close();
+	
 } catch(ClassNotFoundException e) {
 	e.printStackTrace();
 } catch (SQLException ex) {

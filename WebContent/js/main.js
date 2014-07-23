@@ -1,3 +1,5 @@
+var login_email = "";
+
 /**
  * 
  */
@@ -48,13 +50,6 @@ function LoadPage() {
 	/* Sets click event behavior for the Already a Member link. */
 	$('#si-btn').on("click", function() {
 		$('#page-content').load("pages/user_login.jsp", function() {
-			LoadPage();
-		});
-	});
-	
-	/* Sets click event behavior for the Sign Up button on the user sign up page. */
-	$('#si-btn2').on("click", function() {
-		$('#page-content').load("pages/user_profile.jsp", function() {
 			LoadPage();
 		});
 	});
@@ -114,6 +109,7 @@ function SubmitTransaction() {
 	/* Serializes beta sign up form data. */
 	var formData = $('.request-form').serialize() + "&";
 	formData += $('#trans-preferences').serialize();
+	formData += SerializeCheckboxes();
 	console.log(formData);
 	
 	/* Makes ajax call to store new email in beta list. */
@@ -137,7 +133,8 @@ function SubmitTransaction() {
  */
 function SavePreferences() {
 	/* Serializes user preferences form data. */
-	var formData = $('#trans-preferences').serialize();
+	var formData = $('#trans-preferences').serialize() + "&user-email=" + login_email;
+	formData += SerializeCheckboxes();
 	console.log(formData);
 	
 	/* Makes ajax call to store new preferences in user database. */
@@ -157,6 +154,40 @@ function SavePreferences() {
 /**
  * 
  */
+function VerifyLogin() {
+	/* Serializes user preferences form data. */
+	var formData = $('#signin-form').serialize();
+	console.log(formData);
+	
+	/* Makes ajax call to store new preferences in user database. */
+	$.ajax({
+		url: "api/authenticate.jsp",
+		type: "POST",
+		data: formData,
+		dataType: "text",
+		async: false,
+		success: function(data) {
+			var dataContent = data.toString().split(";");
+			login_email = dataContent[0];
+			console.log(login_email);
+			if(login_email == "fail") {
+				/* Append message letting user know of the failed login attempt. */
+				alert("Login attempt failed. Please try another email and password combination.");
+			} else {
+				$('#page-content').load("pages/user_profile.jsp");
+				LoadPage();
+			}
+		}
+	});
+	
+	
+	
+	return false;
+}
+
+/**
+ * 
+ */
 function CheckboxValue() {
 	/* Unbinds any previous change event behavior from the checkboxes. */
 	$('.payment-pref').unbind("change");
@@ -164,7 +195,30 @@ function CheckboxValue() {
 	/* Reassigns the checkbox value when a change is made. */
 	$('.payment-pref').on("change", function() {
 		var box = $(this);
-		box.val(box.prop("checked"));
+		if(box.prop("checked")) {
+			box.val(1);
+		} else {
+			box.val(0);
+		}
 		CheckboxValue();
 	});
+}
+
+/**
+ * 
+ */
+function SerializeCheckboxes() {
+	var data = "";
+	var value = $('#cash-pref').prop("checked");
+	data += "&cash-pref=" + value;
+	value = $('#bank-wire-pref').prop("checked");
+	data += "&bank-wire-pref=" + value;
+	value = $('#cash-deposit-pref').prop("checked");
+	data += "&cash-deposit-pref=" + value;
+	value = $('#paypal-pref').prop("checked");
+	data += "&paypal-pref=" + value;
+	value = $('#other-pref').prop("checked");
+	data += "&other-pref=" + value;
+	
+	return data;
 }

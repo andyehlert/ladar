@@ -7,11 +7,13 @@ try {
 	String url = "jdbc:postgresql://ec2-54-204-42-135.compute-1.amazonaws.com:5432/dal7m7vq7mvnhm?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
 	String username = "qrqtiswaifzehm";
 	String password = "uS3cn1kfbC16j3VF2ZqHddvpfx";
-	String myDataField = null;
+	String myDataField = "";
+	double myDataDouble;
+	int myDataInt;
 	
 	String myQuery = "SELECT * FROM trans_db";
 	
-	String myInsert = "INSERT INTO trans_db (status, amount, buyer, location, num_of_trans, trans_time, reputation, cash, bank_wire, paypal, cash_deposit, other) VALUES('submitted', '" + request.getParameter("amount") +"', 'john@email.com', '" + request.getParameter("location-pref") +"', '" + request.getParameter("trans-number-pref") +"', '" + request.getParameter("timeframe-pref") +"', '" + request.getParameter("rating-pref") +"', '" + request.getParameter("cash-pref") +"', '" + request.getParameter("bank-wire-pref") +"', '" + request.getParameter("paypal-pref") +"', '" + request.getParameter("cash-deposit-pref") +"', '" + request.getParameter("other-pref") +"')";
+	String myInsert = "INSERT INTO trans_db (from_currency, to_currency, status, amount, buyer, location, num_of_trans, trans_time, reputation, cash, bank_wire, paypal, cash_deposit, other) VALUES('" + request.getParameter("from-currency") + "', '" + request.getParameter("to-currency") + "', 'submitted', '" + request.getParameter("amount") +"', 'john@email.com', '" + request.getParameter("location-pref") +"', '" + request.getParameter("trans-number-pref") +"', '" + request.getParameter("timeframe-pref") +"', '" + request.getParameter("rating-pref") +"', '" + request.getParameter("cash-pref") +"', '" + request.getParameter("bank-wire-pref") +"', '" + request.getParameter("paypal-pref") +"', '" + request.getParameter("cash-deposit-pref") +"', '" + request.getParameter("other-pref") +"')";
 	
 	Connection myConnection;
 	PreparedStatement myPreparedStatement;
@@ -30,30 +32,36 @@ try {
 	while(myResultSet.next()) {
 		myDataField = myResultSet.getString("status");
 		System.out.println(myDataField);
-		myDataField = myResultSet.getString("amount");
-		System.out.println(myDataField);
+		myDataDouble = myResultSet.getDouble("amount");
+		System.out.println(myDataDouble);
 		myDataField = myResultSet.getString("buyer");
 		System.out.println(myDataField);
 		myDataField = myResultSet.getString("location");
 		System.out.println(myDataField);
-		myDataField = myResultSet.getString("num_of_cams");
-		System.out.println(myDataField);
-		myDataField = myResultSet.getString("trans_time");
-		System.out.println(myDataField);
-		myDataField = myResultSet.getString("distance");
-		System.out.println(myDataField);
-		myDataField = myResultSet.getString("cash");
-		System.out.println(myDataField);
-		myDataField = myResultSet.getString("bank_wire");
-		System.out.println(myDataField);
-		myDataField = myResultSet.getString("paypal");
-		System.out.println(myDataField);
-		myDataField = myResultSet.getString("cash_deposit");
-		System.out.println(myDataField);
-		myDataField = myResultSet.getString("other");
-		System.out.println(myDataField);
+		myDataInt = myResultSet.getInt("num_of_transs");
+		System.out.println(myDataInt);
+		myDataInt = myResultSet.getInt("trans_time");
+		System.out.println(myDataInt);
+		myDataInt = myResultSet.getInt("reputation");
+		System.out.println(myDataInt);
+		myDataInt = myResultSet.getInt("cash");
+		System.out.println(myDataInt);
+		myDataInt = myResultSet.getInt("bank_wire");
+		System.out.println(myDataInt);
+		myDataInt = myResultSet.getInt("paypal");
+		System.out.println(myDataInt);
+		myDataInt = myResultSet.getInt("cash_deposit");
+		System.out.println(myDataInt);
+		myDataInt = myResultSet.getInt("other");
+		System.out.println(myDataInt);
 		System.out.println();
 	}
+
+	myResultSet.close();
+	myPreparedStatement.close();
+	myStatement.close();
+	myConnection.close();
+	
 } catch(ClassNotFoundException e) {
 	e.printStackTrace();
 } catch (SQLException ex) {

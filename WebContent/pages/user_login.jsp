@@ -2,14 +2,14 @@
 
 	<div class="inner-page">
 		<h3><strong>Sign in</strong></h3>
-		<form accept-charset="utf-8" class="user-login">
+		<form action="JavaScript:VerifyLogin()" accept-charset="utf-8" class="user-login" id="signin-form">
 			<p>
 				<!-- User login form. -->
 				<label for="user-email">Email Address:</label>
 				<input type="email" class="login-input" id="login-username" name="user-email">
 				<label for="user-password">Password:</label>
 				<input type="password" class="login-input" id="login-password" name="user-password">
-				<button type="button" class="btn header-btn" id="si-btn2">Sign in</button>
+				<button type="submit" class="btn header-btn" id="si-btn2">Sign in</button>
 			</p>
 		</form>
 	
@@ -23,7 +23,8 @@
 		$('.content').load("pages/sign-up.jsp");
 	});
 	
-	$('.login-button').on("click", function() {
-		$('.content').load("pages/user_profile.jsp");
-	});
+//	$('.login-button').on("click", function() {
+//		$('.content').load("pages/user_profile.jsp");
+//	});
+
 </script>
