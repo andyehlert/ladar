@@ -2,7 +2,7 @@
 
 	<div class="inner-page">
 		<h3><strong>User Sign-Up</strong></h3>
-		<form>
+		<form action="api/save_user_login.jsp">
 			<p>
 				<label class="su-label" for="signup-email">Email Address:</label>
 				<input class="su-input" type="email" name="signup-email" id="signup-email">
@@ -17,14 +17,14 @@
 			</p>
 			<p>
 				<label class="su-label" for="signup-password">Password:</label>
-				<input class="su-input" type="text" name="signup-password" id="signup-password">
+				<input class="su-input" type="password" name="signup-password" id="signup-password">
 			</p>
 			<p>
 				<label class="su-label" for="signup-password2">Confirm Password:</label>
-				<input class="su-input" type="text" name="signup-password2" id="signup-password2">
+				<input class="su-input" type="password" name="signup-password2" id="signup-password2">
 			</p>
 
-			<p><button type="button" class="btn header-btn" id="si-btn2">Sign Up</button></p>
+			<p><button type="submit" class="btn header-btn" id="si-btn2">Sign Up</button></p>
 		</form>
 	</div>
 	
