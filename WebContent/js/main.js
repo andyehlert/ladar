@@ -10,7 +10,7 @@ function LoadPage() {
 	});
 	
 	$('#au-btn').on("click", function() {
-		$('#page-content').load("pages/landing.jsp", function() {
+		$('#page-content').load("pages/about_us.jsp", function() {
 			LoadPage();
 		});
 	});
