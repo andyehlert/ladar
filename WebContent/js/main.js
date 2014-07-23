@@ -103,3 +103,10 @@ function declineLink() {
 	$('#request-match').css("display", "none");
 	$('#next-request-match').css("display", "block");
 }
+
+/**
+ * 
+ */
+function SubmitTransaction() {
+	
+}

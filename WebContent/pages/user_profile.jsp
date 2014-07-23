@@ -1,11 +1,11 @@
 <div class="site-page">
 	<div class="inner-page" id="inner-profile">
 		<h3><strong>Submit a Transaction Request</strong></h3>
-		<form class="request-form">
+		<form class="request-form" action="JavaScript:SubmitTransaction()">
 			<select><option value="USD">USD</option><option value="BTC">BTC</option></select>
-			<input type="text" placeholder="Amount">
+			<input type="text" name="amount" placeholder="Amount">
 			<select><option value="BTC">BTC</option><option value="USD">USD</option></select>
-			<button type="button" class="btn header-btn" id="request-btn">Submit</button>
+			<button type="submit" class="btn header-btn" id="request-btn">Submit</button>
 		</form> 
 		
 		<p>The settings below will be used for this transaction request. Be sure to make any changes necessary before submitting your request. <br>

@@ -4,7 +4,7 @@
 try {
 	
 	String driver = "org.postgresql.Driver";
-	String url = "jdbc:postgresql://qrqtiswaifzehm:uS3cn1kfbC16j3VF2ZqHddvpfx@ec2-54-204-42-135.compute-1.amazonaws.com:5432/dal7m7vq7mvnhm?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
+	String url = "jdbc:postgresql://ec2-54-204-42-135.compute-1.amazonaws.com:5432/dal7m7vq7mvnhm?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
 	String username = "qrqtiswaifzehm";
 	String password = "uS3cn1kfbC16j3VF2ZqHddvpfx";
 	String myDataField = null;
@@ -13,27 +13,28 @@ try {
 	
 	String myInsert = "INSERT INTO user_db (email_address, password, wallet_address) VALUES('" + request.getParameter("signup-email") + "', '" + request.getParameter("signup-password") +"', '" + request.getParameter("wallet-addr") +"')";
 	
-	Connection myConnection = null;
-	PreparedStatement myPreparedStatement = null;
-	PreparedStatement myStatement = null;
-	ResultSet myResultSet = null;
+	Connection myConnection;
+	PreparedStatement myPreparedStatement;
+	PreparedStatement myStatement;
+	ResultSet myResultSet;
 	
 	
 	Class.forName(driver).newInstance();
 	myConnection = DriverManager.getConnection(url,username,password);
 	
 	myStatement = myConnection.prepareStatement(myInsert);
-	myStatement.executeQuery();
+	myStatement.execute();
 	
 	myPreparedStatement = myConnection.prepareStatement(myQuery);
 	myResultSet = myPreparedStatement.executeQuery();
 	while(myResultSet.next()) {
 		myDataField = myResultSet.getString("email_address");
-		out.print(myDataField);
+		out.println(myDataField);
 		myDataField = myResultSet.getString("password");
-		out.print(myDataField);
+		out.println(myDataField);
 		myDataField = myResultSet.getString("wallet_address");
-		out.print(myDataField);
+		out.println(myDataField);
+		out.println();
 	}
 } catch(ClassNotFoundException e) {
 	e.printStackTrace();

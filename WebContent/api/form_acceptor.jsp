@@ -23,13 +23,13 @@ try {
 	myConnection = DriverManager.getConnection(url,username,password);
 	
 	myStatement = myConnection.prepareStatement(myInsert);
-	myStatement.executeQuery();
+	myStatement.execute();
 	
 	myPreparedStatement = myConnection.prepareStatement(myQuery);
 	myResultSet = myPreparedStatement.executeQuery();
 	while(myResultSet.next()) {
 		myDataField = myResultSet.getString("beta_email");
-		out.print(myDataField);
+		out.println(myDataField);
 	}
 } catch(ClassNotFoundException e) {
 	e.printStackTrace();
