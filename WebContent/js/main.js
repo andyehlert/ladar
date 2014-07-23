@@ -14,6 +14,9 @@ function LoadPage() {
 	$('#request-btn').unbind("click");
 	$('#save-btn').unbind("click");
 	
+	/*  */
+	CheckboxValue();
+	
 	/* Sets click event behavior for the How It Works button. */
 	$('#hiw-btn').on("click", function() {
 		$('#page-content').load("pages/how_it_works.jsp", function() {
@@ -108,5 +111,60 @@ function declineLink() {
  * 
  */
 function SubmitTransaction() {
+	/* Serializes beta sign up form data. */
+	var formData = $('.request-form').serialize() + "&";
+	formData += $('#trans-preferences').serialize();
+	console.log(formData);
 	
+	/* Makes ajax call to store new email in beta list. */
+	$.ajax({
+		url: "api/submit_transaction.jsp",
+		type: "POST",
+		data: formData,
+		async: false
+	});
+	
+	/* Loads the sign up success page into the page content div. */
+	$('#request-match').css("display", "block");
+	$('#next-request-match').css("display", "none");
+	$('#request-accept').css("display", "none");
+	
+	return false;
+}
+
+/**
+ * 
+ */
+function SavePreferences() {
+	/* Serializes user preferences form data. */
+	var formData = $('#trans-preferences').serialize();
+	console.log(formData);
+	
+	/* Makes ajax call to store new preferences in user database. */
+	$.ajax({
+		url: "api/save_preferences.jsp",
+		type: "POST",
+		data: formData,
+		async: false
+	});
+	
+	/* Notifies the user that the preferences have been saved. */
+	alert("The current preferences have successfully been saved as your default preferences.");
+	
+	return false;
+}
+
+/**
+ * 
+ */
+function CheckboxValue() {
+	/* Unbinds any previous change event behavior from the checkboxes. */
+	$('.payment-pref').unbind("change");
+	
+	/* Reassigns the checkbox value when a change is made. */
+	$('.payment-pref').on("change", function() {
+		var box = $(this);
+		box.val(box.prop("checked"));
+		CheckboxValue();
+	});
 }

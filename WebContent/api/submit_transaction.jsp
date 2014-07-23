@@ -29,30 +29,30 @@ try {
 	myResultSet = myPreparedStatement.executeQuery();
 	while(myResultSet.next()) {
 		myDataField = myResultSet.getString("status");
-		out.println(myDataField);
+		System.out.println(myDataField);
 		myDataField = myResultSet.getString("amount");
-		out.println(myDataField);
+		System.out.println(myDataField);
 		myDataField = myResultSet.getString("buyer");
-		out.println(myDataField);
+		System.out.println(myDataField);
 		myDataField = myResultSet.getString("location");
-		out.println(myDataField);
+		System.out.println(myDataField);
 		myDataField = myResultSet.getString("num_of_cams");
-		out.println(myDataField);
+		System.out.println(myDataField);
 		myDataField = myResultSet.getString("trans_time");
-		out.println(myDataField);
+		System.out.println(myDataField);
 		myDataField = myResultSet.getString("distance");
-		out.println(myDataField);
+		System.out.println(myDataField);
 		myDataField = myResultSet.getString("cash");
-		out.println(myDataField);
+		System.out.println(myDataField);
 		myDataField = myResultSet.getString("bank_wire");
-		out.println(myDataField);
+		System.out.println(myDataField);
 		myDataField = myResultSet.getString("paypal");
-		out.println(myDataField);
+		System.out.println(myDataField);
 		myDataField = myResultSet.getString("cash_deposit");
-		out.println(myDataField);
+		System.out.println(myDataField);
 		myDataField = myResultSet.getString("other");
-		out.println(myDataField);
-		out.println();
+		System.out.println(myDataField);
+		System.out.println();
 	}
 } catch(ClassNotFoundException e) {
 	e.printStackTrace();

@@ -27,38 +27,38 @@
 				<p>
 					<label for="rating-pref">Preferred Reputation</label> <select
 						id="rating-pref" name="rating-pref"><option value="0">Any</option>
-						<option value="1">1+</option>
-						<option value="2">2+</option>
-						<option value="3">3+</option>
-						<option value="4">4+</option>
-						<option value="5">5</option></select>
+						<option value=1>1+</option>
+						<option value=2>2+</option>
+						<option value=3>3+</option>
+						<option value=4>4+</option>
+						<option value=5>5</option></select>
 				</p>
 				<p>
 					<label for="trans-number-pref">Transactions Completed</label> <select
 						id="trans-number-pref" name="trans-number-pref"><option
 							value="0">Any</option>
-						<option value="50">0-50</option>
-						<option value="100">50-100</option>
-						<option value="250">100-250</option>
-						<option value="500">250-500</option>
-						<option value="1000">500-1000</option>
-						<option value="1001">1000+</option></select>
+						<option value=50>0-50</option>
+						<option value=100>50-100</option>
+						<option value=250>100-250</option>
+						<option value=500>250-500</option>
+						<option value=1000>500-1000</option>
+						<option value=1001>1000+</option></select>
 				</p>
 				<p>
 					<label for="timeframe-pref">Time Frame</label> <select
 						id="timeframe-pref" name="timeframe-pref"><option
-							value="any">Any</option>
-						<option value="today">Today</option>
-						<option value="week">This week</option>
-						<option value="month">This month</option></select>
+							value=0>Any</option>
+						<option value=1>Today</option>
+						<option value=2>This week</option>
+						<option value=3>This month</option></select>
 				</p>
 				<p id="checkboxes-pref">
-					<input type="checkbox" class="payment-pref" id="cash-pref">Cash	
-					<input type="checkbox" class="payment-pref" id="bank-wire-pref">Bank
-					Wire	 <input type="checkbox" class="payment-pref"
+					<input type="checkbox" value='FALSE' class="payment-pref" id="cash-pref">Cash	
+					<input type="checkbox" value='FALSE' class="payment-pref" id="bank-wire-pref">Bank
+					Wire	 <input type="checkbox" value='FALSE' class="payment-pref"
 						id="cash-deposit-pref">Cash Deposit	 <input
-						type="checkbox" class="payment-pref" id="paypal-pref">Paypal	
-					<input type="checkbox" class="payment-pref" id="other-pref">Other<br>
+						type="checkbox" value='FALSE' class="payment-pref" id="paypal-pref">Paypal	
+					<input type="checkbox" value='FALSE' class="payment-pref" id="other-pref">Other<br>
 				</p>
 				
 				<p>
