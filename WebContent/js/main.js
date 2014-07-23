@@ -9,8 +9,8 @@ function LoadPage() {
 		});
 	});
 	
-	$('#au-btn').on("click", function() {
-		$('#page-content').load("pages/landing.jsp", function() {
+	$('#pay-btn').on("click", function() {
+		$('#page-content').load("pages/Payment.jsp", function() {
 			LoadPage();
 		});
 	});
