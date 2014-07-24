@@ -9,6 +9,7 @@ try {
 	String password = "uS3cn1kfbC16j3VF2ZqHddvpfx";
 	String myDataField = "";
 	int myDataInt;
+	boolean payment;
 	
 	String myQuery = "SELECT * FROM user_db WHERE email_address = '" + request.getParameter("user-email") + "'";
 	
@@ -41,16 +42,16 @@ try {
 		System.out.println(myDataInt);
 		myDataInt = myResultSet.getInt("distance");
 		System.out.println(myDataInt);
-		myDataInt = myResultSet.getInt("cash");
-		System.out.println(myDataInt);
-		myDataInt = myResultSet.getInt("bank_wire");
-		System.out.println(myDataInt);
-		myDataInt = myResultSet.getInt("paypal");
-		System.out.println(myDataInt);
-		myDataInt = myResultSet.getInt("cash_deposit");
-		System.out.println(myDataInt);
-		myDataInt = myResultSet.getInt("other");
-		System.out.println(myDataInt);
+		payment = myResultSet.getBoolean("cash");
+		System.out.println(payment);
+		payment = myResultSet.getBoolean("bank_wire");
+		System.out.println(payment);
+		payment = myResultSet.getBoolean("paypal");
+		System.out.println(payment);
+		payment = myResultSet.getBoolean("cash_deposit");
+		System.out.println(payment);
+		payment = myResultSet.getBoolean("other");
+		System.out.println(payment);
 		System.out.println();
 	}
 

@@ -2,7 +2,7 @@
 
 	<div class="inner-page">
 		<h3><strong>User Sign-Up</strong></h3>
-		<form action="api/save_user_login.jsp">
+		<form action="JavaScript:UserSignup()" id="signup-form">
 			<p>
 				<label class="su-label" for="signup-email">Email Address:</label>
 				<input class="su-input" type="email" name="signup-email" id="signup-email">

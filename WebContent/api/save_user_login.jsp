@@ -9,7 +9,7 @@ try {
 	String password = "uS3cn1kfbC16j3VF2ZqHddvpfx";
 	String myDataField = null;
 	
-	String myQuery = "SELECT * FROM user_db";
+	String myQuery = "SELECT * FROM user_db WHERE email_address = '" + request.getParameter("signup-email") + "'";
 	
 	String myInsert = "INSERT INTO user_db (email_address, password, wallet_address) VALUES('" + request.getParameter("signup-email") + "', '" + request.getParameter("signup-password") +"', '" + request.getParameter("wallet-addr") +"')";
 	
@@ -29,13 +29,15 @@ try {
 	myResultSet = myPreparedStatement.executeQuery();
 	while(myResultSet.next()) {
 		myDataField = myResultSet.getString("email_address");
-		out.println(myDataField);
+		System.out.println(myDataField);
 		myDataField = myResultSet.getString("password");
-		out.println(myDataField);
+		System.out.println(myDataField);
 		myDataField = myResultSet.getString("wallet_address");
-		out.println(myDataField);
-		out.println();
+		System.out.println(myDataField);
+		System.out.println();
 	}
+	
+	response.getWriter().write(request.getParameter("signup-email") + ";");
 
 	myResultSet.close();
 	myStatement.close();

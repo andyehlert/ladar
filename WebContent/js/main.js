@@ -16,9 +16,6 @@ function LoadPage() {
 	$('#request-btn').unbind("click");
 	$('#save-btn').unbind("click");
 	
-	/*  */
-	CheckboxValue();
-	
 	/* Sets click event behavior for the How It Works button. */
 	$('#hiw-btn').on("click", function() {
 		$('#page-content').load("pages/how_it_works.jsp", function() {
@@ -105,14 +102,40 @@ function declineLink() {
 /**
  * 
  */
+function UserSignup() {
+	/* Serializes user sign up form data. */
+	var formData = $('#signup-form').serialize();
+	
+	/* Makes ajax call to store new user vital information in user database. */
+	$.ajax({
+		url: "api/save_user_login.jsp",
+		type: "POST",
+		data: formData,
+		async: false,
+		success: function(data) {
+			var dataContent = data.toString().split(";");
+			login_email = dataContent[0];
+		}
+	});
+	
+	/* Loads the new user's profile page once registration is complete. */
+	$('#page-content').load("pages/user_profile.jsp");
+	LoadPage();
+	
+	return false;
+}
+
+/**
+ * 
+ */
 function SubmitTransaction() {
-	/* Serializes beta sign up form data. */
+	/* Serializes transaction form data. */
 	var formData = $('.request-form').serialize() + "&";
 	formData += $('#trans-preferences').serialize();
-	formData += SerializeCheckboxes();
+	formData += SerializeCheckboxes() + "&user-email=" + login_email;
 	console.log(formData);
 	
-	/* Makes ajax call to store new email in beta list. */
+	/* Makes ajax call to store new transaction in database. */
 	$.ajax({
 		url: "api/submit_transaction.jsp",
 		type: "POST",
@@ -120,7 +143,7 @@ function SubmitTransaction() {
 		async: false
 	});
 	
-	/* Loads the sign up success page into the page content div. */
+	/* Loads transaction information into the right side of the user profile. */
 	$('#request-match').css("display", "block");
 	$('#next-request-match').css("display", "none");
 	$('#request-accept').css("display", "none");
@@ -155,11 +178,11 @@ function SavePreferences() {
  * 
  */
 function VerifyLogin() {
-	/* Serializes user preferences form data. */
+	/* Serializes user sign in form data. */
 	var formData = $('#signin-form').serialize();
 	console.log(formData);
 	
-	/* Makes ajax call to store new preferences in user database. */
+	/* Makes ajax call to verify the provided email-password combination. */
 	$.ajax({
 		url: "api/authenticate.jsp",
 		type: "POST",
@@ -180,28 +203,7 @@ function VerifyLogin() {
 		}
 	});
 	
-	
-	
 	return false;
-}
-
-/**
- * 
- */
-function CheckboxValue() {
-	/* Unbinds any previous change event behavior from the checkboxes. */
-	$('.payment-pref').unbind("change");
-	
-	/* Reassigns the checkbox value when a change is made. */
-	$('.payment-pref').on("change", function() {
-		var box = $(this);
-		if(box.prop("checked")) {
-			box.val(1);
-		} else {
-			box.val(0);
-		}
-		CheckboxValue();
-	});
 }
 
 /**

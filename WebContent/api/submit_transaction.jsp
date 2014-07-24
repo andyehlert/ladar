@@ -10,10 +10,11 @@ try {
 	String myDataField = "";
 	double myDataDouble;
 	int myDataInt;
+	boolean paymentData;
 	
 	String myQuery = "SELECT * FROM trans_db";
 	
-	String myInsert = "INSERT INTO trans_db (from_currency, to_currency, status, amount, buyer, location, num_of_trans, trans_time, reputation, cash, bank_wire, paypal, cash_deposit, other) VALUES('" + request.getParameter("from-currency") + "', '" + request.getParameter("to-currency") + "', 'submitted', '" + request.getParameter("amount") +"', 'john@email.com', '" + request.getParameter("location-pref") +"', '" + request.getParameter("trans-number-pref") +"', '" + request.getParameter("timeframe-pref") +"', '" + request.getParameter("rating-pref") +"', '" + request.getParameter("cash-pref") +"', '" + request.getParameter("bank-wire-pref") +"', '" + request.getParameter("paypal-pref") +"', '" + request.getParameter("cash-deposit-pref") +"', '" + request.getParameter("other-pref") +"')";
+	String myInsert = "INSERT INTO trans_db (from_currency, to_currency, status, amount, buyer, location, num_of_trans, trans_time, reputation, cash, bank_wire, paypal, cash_deposit, other) VALUES('" + request.getParameter("from-currency") + "', '" + request.getParameter("to-currency") + "', 'submitted', '" + request.getParameter("amount") +"', '" + request.getParameter("user-email") + "', '" + request.getParameter("location-pref") +"', '" + request.getParameter("trans-number-pref") +"', '" + request.getParameter("timeframe-pref") +"', '" + request.getParameter("rating-pref") +"', '" + request.getParameter("cash-pref") +"', '" + request.getParameter("bank-wire-pref") +"', '" + request.getParameter("paypal-pref") +"', '" + request.getParameter("cash-deposit-pref") +"', '" + request.getParameter("other-pref") +"')";
 	
 	Connection myConnection;
 	PreparedStatement myPreparedStatement;
@@ -38,22 +39,22 @@ try {
 		System.out.println(myDataField);
 		myDataField = myResultSet.getString("location");
 		System.out.println(myDataField);
-		myDataInt = myResultSet.getInt("num_of_transs");
+		myDataInt = myResultSet.getInt("num_of_trans");
 		System.out.println(myDataInt);
 		myDataInt = myResultSet.getInt("trans_time");
 		System.out.println(myDataInt);
 		myDataInt = myResultSet.getInt("reputation");
 		System.out.println(myDataInt);
-		myDataInt = myResultSet.getInt("cash");
-		System.out.println(myDataInt);
-		myDataInt = myResultSet.getInt("bank_wire");
-		System.out.println(myDataInt);
-		myDataInt = myResultSet.getInt("paypal");
-		System.out.println(myDataInt);
-		myDataInt = myResultSet.getInt("cash_deposit");
-		System.out.println(myDataInt);
-		myDataInt = myResultSet.getInt("other");
-		System.out.println(myDataInt);
+		paymentData = myResultSet.getBoolean("cash");
+		System.out.println(paymentData);
+		paymentData = myResultSet.getBoolean("bank_wire");
+		System.out.println(paymentData);
+		paymentData = myResultSet.getBoolean("paypal");
+		System.out.println(paymentData);
+		paymentData = myResultSet.getBoolean("cash_deposit");
+		System.out.println(paymentData);
+		paymentData = myResultSet.getBoolean("other");
+		System.out.println(paymentData);
 		System.out.println();
 	}
 
