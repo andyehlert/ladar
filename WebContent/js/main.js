@@ -1,7 +1,10 @@
+/* Global variable used to identify which user is logged in. */
 var login_email = "";
 
+
 /**
- * 
+ * Sets all of the necessary button and link behavior when a new
+ * page is loaded.
  */
 function LoadPage() {
 	/* Removes old bound click events. */
@@ -71,36 +74,34 @@ function LoadPage() {
 		$('#next-request-match').css("display", "none");
 		$('#request-accept').css("display", "none");
 	});
-	
-	/* Sets click event behavior for the save settings button on the user profile page. */
-	$('#save-btn').on("click", function() {
-		var save = confirm("Are you sure you would like to save these settings as your default preferences? They will be automatically loaded in the provided boxes every tim you log into your Ladar account.");
-		if(save) {
-			/* Write preferences to user database. */
-		}
-		LoadPage();
-	});
 }
 
+
 /**
- * 
+ * Temporary function that displays a transaction acceptance message.
  */
 function acceptLink() {
+	/* Displays the transaction acceptance message and hides the others. */
 	$('#request-match').css("display", "none");
 	$('#next-request-match').css("display", "none");
 	$('#request-accept').css("display", "block");
 }
 
+
 /**
- * 
+ * Temporary function that displays a transaction declined message with a 
+ * message representing the next transaction match proposal.
  */
 function declineLink() {
+	/* Displays the next transaction proposal. */
 	$('#request-match').css("display", "none");
 	$('#next-request-match').css("display", "block");
 }
 
+
 /**
- * 
+ * Creates a new user entry in the user database and initializes all required
+ * column values when a sign up form is submitted.
  */
 function UserSignup() {
 	/* Serializes user sign up form data. */
@@ -125,8 +126,10 @@ function UserSignup() {
 	return false;
 }
 
+
 /**
- * 
+ * Creates a new entry in the transaction database and initializes all column values
+ * when a user submits a transaction request form from their profile page.
  */
 function SubmitTransaction() {
 	/* Serializes transaction form data. */
@@ -151,14 +154,15 @@ function SubmitTransaction() {
 	return false;
 }
 
+
 /**
- * 
+ * Overwrites old user preferences with the new values when a user submits the save 
+ * as default preferences form on their profile page.
  */
 function SavePreferences() {
 	/* Serializes user preferences form data. */
 	var formData = $('#trans-preferences').serialize() + "&user-email=" + login_email;
 	formData += SerializeCheckboxes();
-	console.log(formData);
 	
 	/* Makes ajax call to store new preferences in user database. */
 	$.ajax({
@@ -174,8 +178,11 @@ function SavePreferences() {
 	return false;
 }
 
+
 /**
- * 
+ * Checks the user database for an entry with email and password values that match those
+ * submitted by the sign in form. Upon success, the user's profile page is loaded and 
+ * their default preferences are loaded into the preferences form on the profile page.
  */
 function VerifyLogin() {
 	/* Serializes user sign in form data. */
@@ -185,7 +192,7 @@ function VerifyLogin() {
 	/* Makes ajax call to verify the provided email-password combination. */
 	$.ajax({
 		url: "api/authenticate.jsp",
-		type: "POST",
+		type: "GET",
 		data: formData,
 		dataType: "text",
 		async: false,
@@ -197,8 +204,20 @@ function VerifyLogin() {
 				/* Append message letting user know of the failed login attempt. */
 				alert("Login attempt failed. Please try another email and password combination.");
 			} else {
-				$('#page-content').load("pages/user_profile.jsp");
-				LoadPage();
+				/* Loads the user's default preferences into the preferences form on their profile page. */
+				$('#page-content').load("pages/user_profile.jsp", function() {
+					$('#wallet-pref').val(dataContent[1]);
+					$('#location-pref').val(dataContent[2]);
+					$('#rating-pref').val(parseInt(dataContent[3]));
+					$('#trans-number-pref').val(parseInt(dataContent[4]));
+					$('#timeframe-pref').val(parseInt(dataContent[5]));
+					$('#cash-pref').prop("checked", (dataContent[6] === "true"));
+					$('#bank-wire-pref').prop("checked", (dataContent[7] === "true"));
+					$('#cash-deposit-pref').prop("checked", (dataContent[8] === "true"));
+					$('#paypal-pref').prop("checked", (dataContent[9] === "true"));
+					$('#other-pref').prop("checked", (dataContent[10] === "true"));
+					LoadPage();
+				});
 			}
 		}
 	});
@@ -206,8 +225,10 @@ function VerifyLogin() {
 	return false;
 }
 
+
 /**
- * 
+ * Serializes the checkbox values into a string that will be used as a part of 
+ * the data option in an ajax call.
  */
 function SerializeCheckboxes() {
 	var data = "";

@@ -8,6 +8,8 @@ try {
 	String username = "qrqtiswaifzehm";
 	String password = "uS3cn1kfbC16j3VF2ZqHddvpfx";
 	String myDataField = null;
+	int myDataInt;
+	boolean payment;
 	
 	String myQuery = "SELECT * FROM user_db WHERE (email_address = ?) AND (password = ?)";
 	
@@ -17,6 +19,7 @@ try {
 	
 	Class.forName(driver).newInstance();
 	myConnection = DriverManager.getConnection(url,username,password);
+	PrintWriter result = response.getWriter();
 	
 	myPreparedStatement = myConnection.prepareStatement(myQuery);
 	myPreparedStatement.setString(1, request.getParameter("user-email"));
@@ -25,12 +28,23 @@ try {
 	
 	if(myResultSet.next()) {
 		System.out.println("Login success!");
-		response.getWriter().write(request.getParameter("user-email") + ";");
+		result.write(request.getParameter("user-email") + ";");
+		result.write(myResultSet.getString("wallet_address") + ";");
+		result.write(myResultSet.getString("location") + ";");
+		result.write(myResultSet.getInt("reputation") + ";");
+		result.write(myResultSet.getInt("num_of_transactions") + ";");
+		result.write(myResultSet.getInt("trans_timeframe") + ";");
+		result.write(myResultSet.getBoolean("cash") + ";");
+		result.write(myResultSet.getBoolean("bank_wire") + ";");
+		result.write(myResultSet.getBoolean("cash_deposit") + ";");
+		result.write(myResultSet.getBoolean("paypal") + ";");
+		result.write(myResultSet.getBoolean("other") + ";");
 	} else {
 		System.out.println("Login failure.");
-		response.getWriter().write("fail;");
+		result.write("fail;");
 	}
 
+	result.close();
 	myResultSet.close();
 	myPreparedStatement.close();
 	myConnection.close();
