@@ -8,7 +8,7 @@
 					<br>
 					<br>
 					<br>
-					<h2>Join the waiting list for our private beta below!</h2>
+					<h2>Join the waiting list for our private beta!</h2>
 
 					<form class="form-inline" id="signup-form" role="form" action="JavaScript:AddToBeta()">
 					  <div class="form-group">

@@ -36,6 +36,12 @@ h4 {
 	font-size: 20px;
 }
 
+h5 {
+	color: black;
+	font-size: 25px;
+	text-align: center;
+}
+
 /* Paragraph & Typographic */
 p {
     line-height: 28px;
@@ -379,3 +385,4 @@ div#request-match, div#next-request-match, div#request-accept {
 #user-preferences label {
 	margin:2px;
 }
+
