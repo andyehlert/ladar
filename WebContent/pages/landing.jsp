@@ -15,7 +15,7 @@
 					    <input type="email" class="form-control inp" id="exampleInputEmail1" name="email" placeholder="Email address">
 					  </div>
 					  <div class="form-group">
-					  <input type="email" class="form-control inp" id="exampleInputLocation1" name="location" placeholder="Location">
+					  <input type="text" class="form-control inp" id="exampleInputLocation1" name="location" placeholder="Location">
 					  </div>
 					  <button type="submit" id="btn-signup" class="btn  btn-lg bt">Join!</button>
 					</form>					
