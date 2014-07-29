@@ -12,7 +12,10 @@
 
 					<form class="form-inline" id="signup-form" role="form" action="JavaScript:AddToBeta()">
 					  <div class="form-group">
-					    <input type="email" class="form-control inp" id="exampleInputEmail1" name="email" placeholder="Enter your email address">
+					    <input type="email" class="form-control inp" id="exampleInputEmail1" name="email" placeholder="Email address">
+					  </div>
+					  <div class="form-group">
+					  <input type="email" class="form-control inp" id="exampleInputLocation1" name="location" placeholder="Location">
 					  </div>
 					  <button type="submit" id="btn-signup" class="btn  btn-lg bt">Join!</button>
 					</form>					
