@@ -27,12 +27,11 @@ try {
 	myResultSet = myPreparedStatement.executeQuery();
 	
 	if(myResultSet.next()) {
-		System.out.println("Login success!");
 		result.write(request.getParameter("user-email") + ";");
 		result.write(myResultSet.getString("wallet_address") + ";");
 		result.write(myResultSet.getString("location") + ";");
-		result.write(myResultSet.getInt("reputation") + ";");
-		result.write(myResultSet.getInt("num_of_transactions") + ";");
+		result.write(myResultSet.getInt("reputation_pref") + ";");
+		result.write(myResultSet.getInt("trans_pref") + ";");
 		result.write(myResultSet.getInt("trans_timeframe") + ";");
 		result.write(myResultSet.getBoolean("cash") + ";");
 		result.write(myResultSet.getBoolean("bank_wire") + ";");
@@ -40,7 +39,6 @@ try {
 		result.write(myResultSet.getBoolean("paypal") + ";");
 		result.write(myResultSet.getBoolean("other") + ";");
 	} else {
-		System.out.println("Login failure.");
 		result.write("fail;");
 	}
 

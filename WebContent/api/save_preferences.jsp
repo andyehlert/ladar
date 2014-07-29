@@ -13,7 +13,7 @@ try {
 	
 	String myQuery = "SELECT * FROM user_db WHERE email_address = '" + request.getParameter("user-email") + "'";
 	
-	String myInsert = "UPDATE user_db SET (wallet_address, location, num_of_transactions, trans_timeframe, reputation, cash, bank_wire, paypal, cash_deposit, other) = ('" + request.getParameter("wallet-pref") +"', '" + request.getParameter("location-pref") +"', '" + request.getParameter("trans-number-pref") +"', '" + request.getParameter("timeframe-pref") +"', '" + request.getParameter("rating-pref") +"', '" + request.getParameter("cash-pref") +"', '" + request.getParameter("bank-wire-pref") +"', '" + request.getParameter("paypal-pref") +"', '" + request.getParameter("cash-deposit-pref") +"', '" + request.getParameter("other-pref") +"') WHERE email_address = '" + request.getParameter("user-email") +"'";
+	String myInsert = "UPDATE user_db SET (wallet_address, location, trans_pref, trans_timeframe, reputation_pref, cash, bank_wire, paypal, cash_deposit, other) = ('" + request.getParameter("wallet-pref") +"', '" + request.getParameter("location-pref") +"', '" + request.getParameter("trans-number-pref") +"', '" + request.getParameter("timeframe-pref") +"', '" + request.getParameter("rating-pref") +"', '" + request.getParameter("cash-pref") +"', '" + request.getParameter("bank-wire-pref") +"', '" + request.getParameter("paypal-pref") +"', '" + request.getParameter("cash-deposit-pref") +"', '" + request.getParameter("other-pref") +"') WHERE email_address = '" + request.getParameter("user-email") +"'";
 	
 	Connection myConnection;
 	PreparedStatement myPreparedStatement;
@@ -36,9 +36,11 @@ try {
 		System.out.println(myDataField);
 		myDataField = myResultSet.getString("location");
 		System.out.println(myDataField);
-		myDataInt = myResultSet.getInt("num_of_transactions");
+		myDataInt = myResultSet.getInt("trans_pref");
 		System.out.println(myDataInt);
 		myDataInt = myResultSet.getInt("trans_timeframe");
+		System.out.println(myDataInt);
+		myDataInt = myResultSet.getInt("reputation_pref");
 		System.out.println(myDataInt);
 		myDataInt = myResultSet.getInt("distance");
 		System.out.println(myDataInt);
