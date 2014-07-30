@@ -47,6 +47,13 @@ function LoadPage() {
 		});
 	});
 	
+	/* Sets click event behavior for the Payment button. */
+	$('#p-btn').on("click", function() {
+		$('#page-content').load("pages/payment.jsp", function() {
+			LoadPage();
+		});
+	});
+	
 	/* Sets click event behavior for the Already a Member link. */
 	$('#si-btn').on("click", function() {
 		$('#page-content').load("pages/user_login.jsp", function() {
@@ -244,4 +251,8 @@ function SerializeCheckboxes() {
 	data += "&other-pref=" + value;
 	
 	return data;
+}
+
+function payment(){
+	Bitpay bitpay = new Bitpay("API_KEY", "USD");
 }
