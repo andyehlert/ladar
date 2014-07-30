@@ -143,7 +143,6 @@ function SubmitTransaction() {
 	var formData = $('.request-form').serialize() + "&";
 	formData += $('#trans-preferences').serialize();
 	formData += SerializeCheckboxes() + "&user-email=" + login_email;
-	console.log(formData);
 	
 	/* Makes ajax call to store new transaction in database. */
 	$.ajax({
@@ -194,7 +193,6 @@ function SavePreferences() {
 function VerifyLogin() {
 	/* Serializes user sign in form data. */
 	var formData = $('#signin-form').serialize();
-	console.log(formData);
 	
 	/* Makes ajax call to verify the provided email-password combination. */
 	$.ajax({
@@ -206,7 +204,6 @@ function VerifyLogin() {
 		success: function(data) {
 			var dataContent = data.toString().split(";");
 			login_email = dataContent[0];
-			console.log(login_email);
 			if(login_email == "fail") {
 				/* Append message letting user know of the failed login attempt. */
 				alert("Login attempt failed. Please try another email and password combination.");
@@ -223,9 +220,34 @@ function VerifyLogin() {
 					$('#cash-deposit-pref').prop("checked", (dataContent[8] === "true"));
 					$('#paypal-pref').prop("checked", (dataContent[9] === "true"));
 					$('#other-pref').prop("checked", (dataContent[10] === "true"));
+					LoadTransactions();
 					LoadPage();
 				});
 			}
+		}
+	});
+	
+	return false;
+}
+
+
+/**
+ * Loads the active transaction requests for a user to their
+ * profile page upon a successful login.
+ */
+function LoadTransactions() {
+	/* Serializes the data to be used for the ajax call. */
+	var ajaxData = "user-email=" + login_email;
+	
+	/* Makes ajax call to retrieve user's active transactions info. */
+	$.ajax({
+		url: "api/view_transactions.jsp",
+		type: "GET",
+		data: ajaxData,
+		dataType: "text",
+		async: false,
+		success: function(data) {
+			/* Put information into the transaction managment profile section. */
 		}
 	});
 	

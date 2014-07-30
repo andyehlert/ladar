@@ -1,12 +1,51 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+<%@ page contentType="text/html; charset=iso-8859-1" language="java" import="java.sql.* " %>
+<%@ page import="java.io.*" %>
+<%
+try {
+	
+	String driver = "org.postgresql.Driver";
+	String url = "jdbc:postgresql://ec2-54-204-42-135.compute-1.amazonaws.com:5432/dal7m7vq7mvnhm?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
+	String username = "qrqtiswaifzehm";
+	String password = "uS3cn1kfbC16j3VF2ZqHddvpfx";
+	String user = request.getParameter("user-email");
+	
+	String myQuery = "SELECT * FROM trans_db WHERE buyer='" + user + "' OR seller='" + user + "'";
+		
+	Connection myConnection;
+	PreparedStatement myPreparedStatement;
+	ResultSet myResultSet;
+	PrintWriter result = response.getWriter();
+	
+	Class.forName(driver).newInstance();
+	myConnection = DriverManager.getConnection(url,username,password);
+	
+	myPreparedStatement = myConnection.prepareStatement(myQuery);
+	myResultSet = myPreparedStatement.executeQuery();
+	while(myResultSet.next()) {
+		result.write(myResultSet.getString("status") + ";");
+		result.write(myResultSet.getDouble("amount") + ";");
+		result.write(myResultSet.getString("buyer") + ";");
+		result.write(myResultSet.getString("location") + ";");
+		result.write(myResultSet.getInt("num_of_trans") + ";");
+		result.write(myResultSet.getInt("trans_time") + ";");
+		result.write( myResultSet.getInt("reputation") + ";");
+		result.write(myResultSet.getBoolean("cash") + ";");
+		result.write(myResultSet.getBoolean("bank_wire") + ";");
+		result.write(myResultSet.getBoolean("paypal") + ";");
+		result.write(myResultSet.getBoolean("cash_deposit") + ";");
+		result.write(myResultSet.getBoolean("other") + ";");
+	}
 
-</body>
-</html>
+	result.close();
+	myResultSet.close();
+	myPreparedStatement.close();
+	myConnection.close();
+	
+} catch(ClassNotFoundException e) {
+	e.printStackTrace();
+} catch (SQLException ex) {
+	out.print("SQLException: "+ex.getMessage());
+	out.print("SQLState: " + ex.getSQLState());
+	out.print("VendorError: " + ex.getErrorCode());
+}
+%>

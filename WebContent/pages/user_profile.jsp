@@ -26,7 +26,7 @@
 				</p>
 				<p>
 					<label for="rating-pref">Preferred Reputation</label> <select
-						id="rating-pref" name="rating-pref"><option value="0">Any</option>
+						id="rating-pref" name="rating-pref"><option value=0>Any</option>
 						<option value=1>1+</option>
 						<option value=2>2+</option>
 						<option value=3>3+</option>
@@ -36,7 +36,7 @@
 				<p>
 					<label for="trans-number-pref">Transactions Completed</label> <select
 						id="trans-number-pref" name="trans-number-pref"><option
-							value="0">Any</option>
+							value=0>Any</option>
 						<option value=50>0-50</option>
 						<option value=100>50-100</option>
 						<option value=250>100-250</option>
