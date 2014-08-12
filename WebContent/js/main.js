@@ -47,6 +47,13 @@ function LoadPage() {
 		});
 	});
 	
+	/* Sets click event behavior for the Payment button. */
+	$('#p-btn').on("click", function() {
+		$('#page-content').load("pages/payment.jsp", function() {
+			LoadPage();
+		});
+	});
+	
 	/* Sets click event behavior for the Already a Member link. */
 	$('#si-btn').on("click", function() {
 		$('#page-content').load("pages/user_login.jsp", function() {
@@ -365,6 +372,7 @@ function SerializeCheckboxes() {
 	return data;
 }
 
+<<<<<<< HEAD
 
 /**
  * Returns an html string to be appended to the transaction management
@@ -402,3 +410,8 @@ function ManagementLinkActivation() {
 		}
 	});
 }
+=======
+function payment(){
+	Bitpay bitpay = new Bitpay("API_KEY", "USD");
+}
+>>>>>>> branch 'master' of https://github.com/andyehlert/ladar
