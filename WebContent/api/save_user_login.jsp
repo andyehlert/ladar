@@ -17,6 +17,7 @@ try {
 	PreparedStatement myPreparedStatement;
 	PreparedStatement myStatement;
 	ResultSet myResultSet;
+	PrintWriter result;
 	
 	
 	Class.forName(driver).newInstance();
@@ -27,21 +28,28 @@ try {
 	
 	myPreparedStatement = myConnection.prepareStatement(myQuery);
 	myResultSet = myPreparedStatement.executeQuery();
+	result = response.getWriter();
 	while(myResultSet.next()) {
-		myDataField = myResultSet.getString("email_address");
-		System.out.println(myDataField);
-		myDataField = myResultSet.getString("password");
-		System.out.println(myDataField);
-		myDataField = myResultSet.getString("wallet_address");
-		System.out.println(myDataField);
-		System.out.println();
+		result.write(request.getParameter("signup-email") + ";");
+		result.write(myResultSet.getString("wallet_address") + ";");
+		result.write(myResultSet.getString("location") + ";");
+		result.write(myResultSet.getInt("reputation_pref") + ";");
+		result.write(myResultSet.getInt("trans_pref") + ";");
+		result.write(myResultSet.getInt("trans_timeframe") + ";");
+		result.write(myResultSet.getBoolean("cash") + ";");
+		result.write(myResultSet.getBoolean("bank_wire") + ";");
+		result.write(myResultSet.getBoolean("cash_deposit") + ";");
+		result.write(myResultSet.getBoolean("paypal") + ";");
+		result.write(myResultSet.getBoolean("other") + "");
 	}
 	
-	response.getWriter().write(request.getParameter("signup-email") + ";");
+	
+	
 
 	myResultSet.close();
 	myStatement.close();
 	myConnection.close();
+	result.close();
 	
 } catch(ClassNotFoundException e) {
 	e.printStackTrace();

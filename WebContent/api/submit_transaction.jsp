@@ -27,22 +27,29 @@ try {
 	Connection myConnection;
 	PreparedStatement myPreparedStatement;
 	PreparedStatement myStatement;
-	PreparedStatement myMatchStatement;
+	PreparedStatement myCountStatement;
 	ResultSet myResultSet;
+	ResultSet r;
 	
 	Class.forName(driver).newInstance();
 	myConnection = DriverManager.getConnection(url,username,password);
 	
 	String myQuery = "SELECT * FROM user_db WHERE email_address='" + request.getParameter("user-email") +"'";
-	double rep;
+	int rep;
 	int num_trans;
 	myPreparedStatement = myConnection.prepareStatement(myQuery);
 	myResultSet = myPreparedStatement.executeQuery();
 	myResultSet.next();
-	rep = myResultSet.getDouble("reputation");
+	rep = (int) myResultSet.getDouble("reputation");
 	num_trans = myResultSet.getInt("num_of_transactions");
 	
-	String myInsert = "INSERT INTO trans_db (from_currency, to_currency, status, amount, " + role + ", " + otherRole + ", location, trans_pref, trans_time, reputation_pref, cash, bank_wire, paypal, cash_deposit, other, reputation, num_of_trans) VALUES('" + request.getParameter("from-currency") + "', '" + request.getParameter("to-currency") + "', 'submitted', '" + request.getParameter("amount") +"', '" + request.getParameter("user-email") + "', '', '" + request.getParameter("location-pref") +"', '" + request.getParameter("trans-number-pref") +"', '" + request.getParameter("timeframe-pref") +"', '" + request.getParameter("rating-pref") +"', '" + request.getParameter("cash-pref") +"', '" + request.getParameter("bank-wire-pref") +"', '" + request.getParameter("paypal-pref") +"', '" + request.getParameter("cash-deposit-pref") +"', '" + request.getParameter("other-pref") + "', '" + rep + "', '" + num_trans + "')";
+	String myCount = "SELECT count(*) FROM trans_db";
+	myCountStatement = myConnection.prepareStatement(myCount);
+	r = myCountStatement.executeQuery();
+	r.next();
+	int newID = (r.getInt(1) + 1);
+	
+	String myInsert = "INSERT INTO trans_db (trans_id, owner, from_currency, to_currency, status, amount, " + role + ", " + otherRole + ", location, trans_pref, trans_time, reputation_pref, cash, bank_wire, paypal, cash_deposit, other, reputation, num_of_trans) VALUES(" + newID + ", '" + request.getParameter("user-email") + "', '" + request.getParameter("from-currency") + "', '" + request.getParameter("to-currency") + "', 'submitted', '" + request.getParameter("amount") +"', '" + request.getParameter("user-email") + "', '', '" + request.getParameter("location-pref") +"', '" + request.getParameter("trans-number-pref") +"', '" + request.getParameter("timeframe-pref") +"', '" + request.getParameter("rating-pref") +"', '" + request.getParameter("cash-pref") +"', '" + request.getParameter("bank-wire-pref") +"', '" + request.getParameter("paypal-pref") +"', '" + request.getParameter("cash-deposit-pref") +"', '" + request.getParameter("other-pref") + "', '" + rep + "', '" + num_trans + "')";
 	myStatement = myConnection.prepareStatement(myInsert);
 	myStatement.execute();
 	
@@ -63,11 +70,14 @@ try {
 	params.put("other", request.getParameter("other-pref"));
 	params.put("reputation", rep + "");
 	params.put("num_of_trans", num_trans + "");
+	params.put("trans_id", newID + "");
 	
-	String match = Ladar.findMatch(myConnection, params);
+	response.getWriter().write(Ladar.findMatch(myConnection, params));
 
 	myResultSet.close();
+	r.close();
 	myPreparedStatement.close();
+	myCountStatement.close();
 	myStatement.close();
 	myConnection.close();
 	

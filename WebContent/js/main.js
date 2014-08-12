@@ -80,11 +80,26 @@ function LoadPage() {
 /**
  * Temporary function that displays a transaction acceptance message.
  */
-function acceptLink() {
+function AcceptTransaction(container) {
 	/* Displays the transaction acceptance message and hides the others. */
-	$('#request-match').css("display", "none");
-	$('#next-request-match').css("display", "none");
-	$('#request-accept').css("display", "block");
+//	$('#request-match').css("display", "none");
+//	$('#next-request-match').css("display", "none");
+//	$('#request-accept').css("display", "block");
+	
+	var ajaxData = "link=accept&" + container.find("form").serialize();
+	console.log(ajaxData);
+	
+//	$.ajax({
+//		url: "api/manage_transactions.jsp",
+//		type: "POST",
+//		data: ajaxData,
+//		async: false,
+//		success: function(data) {
+//			
+//		}
+//	});
+	
+	return false;
 }
 
 
@@ -92,10 +107,51 @@ function acceptLink() {
  * Temporary function that displays a transaction declined message with a 
  * message representing the next transaction match proposal.
  */
-function declineLink() {
+function DeclineTransaction(container) {
 	/* Displays the next transaction proposal. */
-	$('#request-match').css("display", "none");
-	$('#next-request-match').css("display", "block");
+//	$('#request-match').css("display", "none");
+//	$('#next-request-match').css("display", "block");
+	
+	var ajaxData = "link=decline&" + container.find("form").serialize();
+	console.log(ajaxData);
+	
+//	$.ajax({
+//		url: "api/manage_transactions.jsp",
+//		type: "POST",
+//		data: ajaxData,
+//		async: false,
+//		success: function(data) {
+//			
+//		}
+//	});
+	
+	return false;
+}
+
+
+/**
+ * Temporary function that displays a transaction canceled message when the 
+ * user clicks a cancel transaction link on their profile page.
+ */
+function CancelTransaction(container) {
+	/* Displays the next transaction proposal. */
+//	$('#request-match').css("display", "none");
+//	$('#next-request-match').css("display", "block");
+	
+	var ajaxData = "link=cancel&" + container.find("form").serialize();
+	console.log(ajaxData);
+	
+//	$.ajax({
+//		url: "api/manage_transactions.jsp",
+//		type: "POST",
+//		data: ajaxData,
+//		async: false,
+//		success: function(data) {
+//			
+//		}
+//	});
+	
+	return false;
 }
 
 
@@ -114,14 +170,26 @@ function UserSignup() {
 		data: formData,
 		async: false,
 		success: function(data) {
+			/* Sets global variable to email address of user that is now logged in. */
 			var dataContent = data.toString().split(";");
 			login_email = dataContent[0];
+			
+			/* Loads the user's default preferences into the preferences form on their profile page. */
+			$('#page-content').load("pages/user_profile.jsp", function() {
+				$('#wallet-pref').val(dataContent[1]);
+				$('#rating-pref').val(parseInt(dataContent[3]));
+				$('#trans-number-pref').val(parseInt(dataContent[4]));
+				$('#timeframe-pref').val(parseInt(dataContent[5]));
+				$('#cash-pref').prop("checked", (dataContent[6] === "true"));
+				$('#bank-wire-pref').prop("checked", (dataContent[7] === "true"));
+				$('#cash-deposit-pref').prop("checked", (dataContent[8] === "true"));
+				$('#paypal-pref').prop("checked", (dataContent[9] === "true"));
+				$('#other-pref').prop("checked", (dataContent[10] === "true"));
+				LoadTransactions();
+				LoadPage();
+			});
 		}
 	});
-	
-	/* Loads the new user's profile page once registration is complete. */
-	$('#page-content').load("pages/user_profile.jsp");
-	LoadPage();
 	
 	return false;
 }
@@ -142,7 +210,17 @@ function SubmitTransaction() {
 		url: "api/submit_transaction.jsp",
 		type: "POST",
 		data: formData,
-		async: false
+		dataType: "text",
+		async: false,
+		success: function(data) {
+			/* Displays match information on user profile page. CHANGE LATER. */
+			var dataContent = data.toString().split(";");
+			var comma = "";
+			for(var i = 0; i < dataContent.length-1; i++) {
+				$('#request-match p').append(comma + dataContent[i]);
+				comma = ", ";
+			}
+		}
 	});
 	
 	/* Loads transaction information into the right side of the user profile. */
@@ -240,7 +318,26 @@ function LoadTransactions() {
 		dataType: "text",
 		async: false,
 		success: function(data) {
-			/* Put information into the transaction managment profile section. */
+			/* Put information into the transaction management profile section. */
+			var comma;
+			var currentTrans;
+			$('#active-transactions div').remove();
+			var dataContent = data.toString().split("/");
+			for(var i = 0; i < dataContent.length; i++) {
+				comma = "";
+				currentTrans = dataContent[i].split(";");
+				var appendStr = "<div> <p>";
+				for(var j = 0; j < currentTrans.length-2; j++) {
+					appendStr += (comma + currentTrans[j]);
+					comma = ", ";
+				}
+				appendStr += "<form><input type='hidden' name='trans-id' value=" + currentTrans[currentTrans.length-2] + "><input type='hidden' name='match-id' value=" + currentTrans[currentTrans.length-1] + "></form>";
+				appendStr += TransactionOptions(currentTrans);
+				appendStr += "</p> </div>";
+				console.log(appendStr);
+				$('#active-transactions').append(appendStr);
+			}
+			ManagementLinkActivation();
 		}
 	});
 	
@@ -266,4 +363,42 @@ function SerializeCheckboxes() {
 	data += "&other-pref=" + value;
 	
 	return data;
+}
+
+
+/**
+ * Returns an html string to be appended to the transaction management
+ * section of the user profile page. Returns different links based on the 
+ * status of the transaction.
+ * 
+ * @param transData Array of strings containing the information needed to 
+ * select and return the correct link options.
+ */
+function TransactionOptions(transData) {
+	var result = "";
+	if(transData[0].trim() == "submitted") {
+		result = "<a class='response-link manage-link accept-link' href='JavaScript:void(0)'>Accept match</a> <a class='response-link manage-link decline-link' href='JavaScript:void(0)'>New match</a> <a class='response-link manage-link cancel-link' href='JavaScript:void(0)'>Cancel request</a>";
+	} else if(transData[0].trim() == "matched") {
+		result = "<a class='response-link manage-link decline-link' href='JavaScript:void(0)'>New match</a> <a class='response-link manage-link cancel-link' href='JavaScript:void(0)'>Cancel request</a>";
+	} else if(transData[0].trim() == "pending") {
+		result = "<a class='response-link manage-link cancel-link' href='JavaScript:void(0)'>Cancel request</a>";
+	}
+	return result;
+}
+
+
+/**
+ * 
+ */
+function ManagementLinkActivation() {
+	$('#active-transactions .manage-link').on("click", function() {
+		var link = $(this);
+		if(link.hasClass("accept-link")) {
+			AcceptTransaction(link.parent());
+		} else if(link.hasClass("decline-link")) {
+			DeclineTransaction(link.parent());
+		} else if(link.hasClass("cancel-link")) {
+			CancelTransaction(link.parent());
+		}
+	});
 }

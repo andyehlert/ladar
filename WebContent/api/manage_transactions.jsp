@@ -1,12 +1,31 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
-
-</body>
-</html>
+<%@ page contentType="text/html; charset=iso-8859-1" language="java" import="java.sql.* " %>
+<%@ page import="java.io.*" %>
+<%@ page import="java.util.*" %>
+<%@ page import="ladar.*" %>
+<%
+try {
+	
+	String driver = "org.postgresql.Driver";
+	String url = "jdbc:postgresql://ec2-54-204-42-135.compute-1.amazonaws.com:5432/dal7m7vq7mvnhm?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
+	String username = "qrqtiswaifzehm";
+	String password = "uS3cn1kfbC16j3VF2ZqHddvpfx";
+	
+	Class.forName(driver).newInstance();
+	Connection myConnection = DriverManager.getConnection(url,username,password);
+	
+	Map<String, String> params = new HashMap<String, String>();
+	params.put("link", request.getParameter("link"));
+	params.put("trans_id", request.getParameter("trans-id"));
+	params.put("match_trans_id", request.getParameter("match-id"));
+	
+	response.getWriter().write(Ladar.manageTransaction(myConnection, params));
+	myConnection.close();
+	
+} catch(ClassNotFoundException e) {
+	e.printStackTrace();
+} catch (SQLException ex) {
+	out.print("SQLException: "+ex.getMessage());
+	out.print("SQLState: " + ex.getSQLState());
+	out.print("VendorError: " + ex.getErrorCode());
+}
+%>

@@ -48,9 +48,9 @@ try {
 		System.out.println(payment);
 		payment = myResultSet.getBoolean("bank_wire");
 		System.out.println(payment);
-		payment = myResultSet.getBoolean("paypal");
-		System.out.println(payment);
 		payment = myResultSet.getBoolean("cash_deposit");
+		System.out.println(payment);
+		payment = myResultSet.getBoolean("paypal");
 		System.out.println(payment);
 		payment = myResultSet.getBoolean("other");
 		System.out.println(payment);

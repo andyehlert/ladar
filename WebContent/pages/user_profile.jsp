@@ -3,7 +3,7 @@
 		<h3><strong>Submit a Transaction Request</strong></h3>
 		<form class="request-form" action="JavaScript:SubmitTransaction()">
 			<select name="from-currency"><option value="USD">USD</option><option value="BTC">BTC</option></select>
-			<input type="text" name="amount" placeholder="Amount">
+			<input type="number" step="0.0001" name="amount" placeholder="Amount">
 			<select name="to-currency"><option value="BTC">BTC</option><option value="USD">USD</option></select>
 			<button type="submit" class="btn header-btn" id="request-btn">Submit</button>
 		</form> 
@@ -77,8 +77,8 @@
 			<p>
 				The transaction match information will show up here. <a
 					class="response-link" id="match-accept"
-					href="JavaScript:acceptLink()">Accept</a> <a class="response-link"
-					id="match-decline" href="JavaScript:declineLink()">Decline</a>
+					href="JavaScript:void(0)">Accept</a> <a class="response-link"
+					id="match-decline" href="JavaScript:void(0)">Decline</a>
 			</p>
 		</div>
 		<div id="next-request-match" class="inner-page">
@@ -88,19 +88,24 @@
 			<p>
 				The next transaction match information will show up here. <a
 					class="response-link" id="match-accept"
-					href="JavaScript:acceptLink()">Accept</a> <a class="response-link"
-					id="match-decline" href="JavaScript:declineLink()">Decline</a>
+					href="JavaScript:void(0)">Accept</a> <a class="response-link"
+					id="match-decline" href="JavaScript:void(0)">Decline</a>
 			</p>
 		</div>
 		<div id="request-accept" class="inner-page">
 			<h4>
-				<strong>Accepted Transaction</strong>
+				<strong>Accepted Transaction</strong> 
 			</h4>
 			<p>
 				You have successfully accepted the transaction. <br> When both
-				parties have accepted you will recieve an email containing the other
+				parties have accepted you will receive an email containing the other
 				party's contact information.
 			</p>
+		</div>
+		<div id="active-transactions" class="inner-page">
+			<h4>
+				<strong>Active Transactions</strong> <a class="response-link" href="JavaScript:LoadTransactions()">refresh</a>
+			</h4>
 		</div>
 	</div>
 

@@ -9,7 +9,7 @@ try {
 	String password = "uS3cn1kfbC16j3VF2ZqHddvpfx";
 	String user = request.getParameter("user-email");
 	
-	String myQuery = "SELECT * FROM trans_db WHERE buyer='" + user + "' OR seller='" + user + "'";
+	String myQuery = "SELECT * FROM trans_db WHERE owner='" + user + "'";
 		
 	Connection myConnection;
 	PreparedStatement myPreparedStatement;
@@ -23,17 +23,15 @@ try {
 	myResultSet = myPreparedStatement.executeQuery();
 	while(myResultSet.next()) {
 		result.write(myResultSet.getString("status") + ";");
-		result.write(myResultSet.getDouble("amount") + ";");
-		result.write(myResultSet.getString("buyer") + ";");
+		result.write(myResultSet.getString("to_currency") + ";");
+		result.write(myResultSet.getString("from_currency") + ";");
 		result.write(myResultSet.getString("location") + ";");
+		result.write(myResultSet.getDouble("amount") + ";");
+		result.write(myResultSet.getInt("reputation") + ";");
 		result.write(myResultSet.getInt("num_of_trans") + ";");
 		result.write(myResultSet.getInt("trans_time") + ";");
-		result.write( myResultSet.getInt("reputation") + ";");
-		result.write(myResultSet.getBoolean("cash") + ";");
-		result.write(myResultSet.getBoolean("bank_wire") + ";");
-		result.write(myResultSet.getBoolean("paypal") + ";");
-		result.write(myResultSet.getBoolean("cash_deposit") + ";");
-		result.write(myResultSet.getBoolean("other") + ";");
+		result.write(myResultSet.getInt("trans_id") + ";");
+		result.write(myResultSet.getInt("match_trans_id") + "/");
 	}
 
 	result.close();
