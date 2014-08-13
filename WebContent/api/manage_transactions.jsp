@@ -17,6 +17,7 @@ try {
 	params.put("link", request.getParameter("link"));
 	params.put("trans_id", request.getParameter("trans-id"));
 	params.put("match_trans_id", request.getParameter("match-id"));
+	params.put("email", request.getParameter("user-email"));
 	
 	response.getWriter().write(Ladar.manageTransaction(myConnection, params));
 	myConnection.close();

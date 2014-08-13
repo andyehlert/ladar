@@ -93,7 +93,7 @@ function AcceptTransaction(container) {
 //	$('#next-request-match').css("display", "none");
 //	$('#request-accept').css("display", "block");
 	
-	var ajaxData = "link=accept&" + container.find("form").serialize();
+	var ajaxData = "link=accept&" + container.find("form").serialize() + "&user-email=" + login_email;
 	console.log(ajaxData);
 	
 //	$.ajax({
@@ -119,7 +119,7 @@ function DeclineTransaction(container) {
 //	$('#request-match').css("display", "none");
 //	$('#next-request-match').css("display", "block");
 	
-	var ajaxData = "link=decline&" + container.find("form").serialize();
+	var ajaxData = "link=decline&" + container.find("form").serialize() + "&user-email=" + login_email;
 	console.log(ajaxData);
 	
 //	$.ajax({
@@ -145,7 +145,7 @@ function CancelTransaction(container) {
 //	$('#request-match').css("display", "none");
 //	$('#next-request-match').css("display", "block");
 	
-	var ajaxData = "link=cancel&" + container.find("form").serialize();
+	var ajaxData = "link=cancel&" + container.find("form").serialize() + "&user-email=" + login_email;
 	console.log(ajaxData);
 	
 //	$.ajax({
@@ -372,7 +372,6 @@ function SerializeCheckboxes() {
 	return data;
 }
 
-<<<<<<< HEAD
 
 /**
  * Returns an html string to be appended to the transaction management
@@ -410,8 +409,3 @@ function ManagementLinkActivation() {
 		}
 	});
 }
-=======
-function payment(){
-	Bitpay bitpay = new Bitpay("API_KEY", "USD");
-}
->>>>>>> branch 'master' of https://github.com/andyehlert/ladar
