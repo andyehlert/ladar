@@ -9,7 +9,7 @@ try {
 	String password = "uS3cn1kfbC16j3VF2ZqHddvpfx";
 	String user = request.getParameter("user-email");
 	
-	String myQuery = "SELECT * FROM trans_db WHERE owner='" + user + "'";
+	String myQuery = "SELECT * FROM trans_db WHERE owner LIKE '" + user + "%'";
 		
 	Connection myConnection;
 	PreparedStatement myPreparedStatement;

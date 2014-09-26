@@ -12,14 +12,27 @@ try {
 	
 	Class.forName(driver).newInstance();
 	Connection myConnection = DriverManager.getConnection(url,username,password);
+
+	String user = "SELECT * FROM trans_db WHERE trans_id=" + request.getParameter("trans-id");
+	PreparedStatement pstmt = myConnection.prepareStatement(user);
+	ResultSet rs = pstmt.executeQuery();
+
+	if(rs.next()) {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("link", request.getParameter("link"));
+		params.put("trans_id", request.getParameter("trans-id"));
+		params.put("match_trans_id", request.getParameter("match-id"));
+		params.put("email", rs.getString("owner"));
 	
-	Map<String, String> params = new HashMap<String, String>();
-	params.put("link", request.getParameter("link"));
-	params.put("trans_id", request.getParameter("trans-id"));
-	params.put("match_trans_id", request.getParameter("match-id"));
-	params.put("email", request.getParameter("user-email"));
+		System.out.println("Manage Trans Params: " + params.toString());
 	
-	response.getWriter().write(Ladar.manageTransaction(myConnection, params));
+		response.getWriter().write(Ladar.manageTransaction(myConnection, params));
+	} else {
+		response.getWriter().write("Transaction ID not found;");
+	}
+	
+	rs.close();
+	pstmt.close();
 	myConnection.close();
 	
 } catch(ClassNotFoundException e) {

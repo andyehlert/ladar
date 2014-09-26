@@ -86,25 +86,29 @@ function LoadPage() {
 
 /**
  * Temporary function that displays a transaction acceptance message.
+ * 
+ * @param container jQuery object representing div containing the management 
+ * link that was clicked.
  */
 function AcceptTransaction(container) {
-	/* Displays the transaction acceptance message and hides the others. */
-//	$('#request-match').css("display", "none");
-//	$('#next-request-match').css("display", "none");
-//	$('#request-accept').css("display", "block");
-	
+	/* Initialize the ajax data string with the necessary parameters. */
 	var ajaxData = "link=accept&" + container.find("form").serialize() + "&user-email=" + login_email;
 	console.log(ajaxData);
-	
-//	$.ajax({
-//		url: "api/manage_transactions.jsp",
-//		type: "POST",
-//		data: ajaxData,
-//		async: false,
-//		success: function(data) {
-//			
-//		}
-//	});
+
+	/*
+	 * Makes ajax call to alter transaction info in the database and reloads the
+	 * active transactions section of the user profile.
+	 */
+	$.ajax({
+		url: "api/manage_transactions.jsp",
+		type: "POST",
+		data: ajaxData,
+		async: false,
+		success: function(data) {
+			alert("Transaction accept successful.");
+			LoadTransactions();
+		}
+	});
 	
 	return false;
 }
@@ -113,24 +117,29 @@ function AcceptTransaction(container) {
 /**
  * Temporary function that displays a transaction declined message with a 
  * message representing the next transaction match proposal.
+ * 
+ * @param container jQuery object representing div containing the management 
+ * link that was clicked.
  */
 function DeclineTransaction(container) {
-	/* Displays the next transaction proposal. */
-//	$('#request-match').css("display", "none");
-//	$('#next-request-match').css("display", "block");
-	
+	/* Initialize the ajax data string with the necessary parameters. */
 	var ajaxData = "link=decline&" + container.find("form").serialize() + "&user-email=" + login_email;
 	console.log(ajaxData);
-	
-//	$.ajax({
-//		url: "api/manage_transactions.jsp",
-//		type: "POST",
-//		data: ajaxData,
-//		async: false,
-//		success: function(data) {
-//			
-//		}
-//	});
+
+	/*
+	 * Makes ajax call to alter transaction info in the database and reloads the
+	 * active transactions section of the user profile.
+	 */
+	$.ajax({
+		url: "api/manage_transactions.jsp",
+		type: "POST",
+		data: ajaxData,
+		async: false,
+		success: function(data) {
+			alert("Transaction decline successful.");
+			LoadTransactions();
+		}
+	});
 	
 	return false;
 }
@@ -139,24 +148,29 @@ function DeclineTransaction(container) {
 /**
  * Temporary function that displays a transaction canceled message when the 
  * user clicks a cancel transaction link on their profile page.
+ * 
+ * @param container jQuery object representing div containing the management 
+ * link that was clicked.
  */
 function CancelTransaction(container) {
-	/* Displays the next transaction proposal. */
-//	$('#request-match').css("display", "none");
-//	$('#next-request-match').css("display", "block");
-	
+	/* Initialize the ajax data string with the necessary parameters. */
 	var ajaxData = "link=cancel&" + container.find("form").serialize() + "&user-email=" + login_email;
 	console.log(ajaxData);
-	
-//	$.ajax({
-//		url: "api/manage_transactions.jsp",
-//		type: "POST",
-//		data: ajaxData,
-//		async: false,
-//		success: function(data) {
-//			
-//		}
-//	});
+
+	/*
+	 * Makes ajax call to alter transaction info in the database and reloads the
+	 * active transactions section of the user profile.
+	 */
+	$.ajax({
+		url: "api/manage_transactions.jsp",
+		type: "POST",
+		data: ajaxData,
+		async: false,
+		success: function(data) {
+			alert("Transaction successfully cancelled.");
+			LoadTransactions();
+		}
+	});
 	
 	return false;
 }
@@ -227,6 +241,10 @@ function SubmitTransaction() {
 				$('#request-match p').append(comma + dataContent[i]);
 				comma = ", ";
 			}
+			
+			/* Alert the user of a completed transaction and refresh their active transactions. */
+			alert("Transaction submission successful.");
+			LoadTransactions();
 		}
 	});
 	
@@ -330,15 +348,17 @@ function LoadTransactions() {
 			var currentTrans;
 			$('#active-transactions div').remove();
 			var dataContent = data.toString().split("/");
+			var length;
 			for(var i = 0; i < dataContent.length; i++) {
 				comma = "";
 				currentTrans = dataContent[i].split(";");
 				var appendStr = "<div> <p>";
-				for(var j = 0; j < currentTrans.length-2; j++) {
+				length = currentTrans.length;
+				for(var j = 0; j < length-2; j++) {
 					appendStr += (comma + currentTrans[j]);
 					comma = ", ";
 				}
-				appendStr += "<form><input type='hidden' name='trans-id' value=" + currentTrans[currentTrans.length-2] + "><input type='hidden' name='match-id' value=" + currentTrans[currentTrans.length-1] + "></form>";
+				appendStr += "<form><input type='hidden' name='trans-id' value=" + currentTrans[length-2] + "><input type='hidden' name='match-id' value=" + currentTrans[length-1] + "></form>";
 				appendStr += TransactionOptions(currentTrans);
 				appendStr += "</p> </div>";
 				console.log(appendStr);
@@ -357,6 +377,7 @@ function LoadTransactions() {
  * the data option in an ajax call.
  */
 function SerializeCheckboxes() {
+	/* Sets result to serialized string of checkbox boolean values. */
 	var data = "";
 	var value = $('#cash-pref').prop("checked");
 	data += "&cash-pref=" + value;
@@ -382,6 +403,7 @@ function SerializeCheckboxes() {
  * select and return the correct link options.
  */
 function TransactionOptions(transData) {
+	/* Sets result string to the appropriate transaction management links. */
 	var result = "";
 	if(transData[0].trim() == "submitted") {
 		result = "<a class='response-link manage-link accept-link' href='JavaScript:void(0)'>Accept match</a> <a class='response-link manage-link decline-link' href='JavaScript:void(0)'>New match</a> <a class='response-link manage-link cancel-link' href='JavaScript:void(0)'>Cancel request</a>";
@@ -390,12 +412,14 @@ function TransactionOptions(transData) {
 	} else if(transData[0].trim() == "pending") {
 		result = "<a class='response-link manage-link cancel-link' href='JavaScript:void(0)'>Cancel request</a>";
 	}
+	
 	return result;
 }
 
 
 /**
- * 
+ * Helper function that assigns click event behavior to newly created 
+ * transaction management links.
  */
 function ManagementLinkActivation() {
 	$('#active-transactions .manage-link').on("click", function() {
@@ -408,4 +432,18 @@ function ManagementLinkActivation() {
 			CancelTransaction(link.parent());
 		}
 	});
+}
+
+
+/**
+ * Helper function that builds paragraph content to post to the 
+ * active transactions section of the user profile page.
+ * 
+ * @param data http response containing information needed to 
+ * build the display paragraph.
+ * @return String containing html paragraph to be displayed.
+ */
+function DisplayTransactionInfo(data) {
+	
+	return "";
 }

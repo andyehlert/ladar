@@ -22,6 +22,7 @@ public class Ladar {
 		double convertedAmount = Double.parseDouble(params.get("amount"));
 		
 		/* Sets the required role and calculates converted amount to search for. */
+		System.out.println(params.get("role"));
 		if(params.get("role").equals("buyer")) {
 			role = "seller";
 			convertedAmount = (convertedAmount / btcValue);
@@ -31,12 +32,12 @@ public class Ladar {
 		}
 		
 		/* Sets the query string to be used in a prepared statement. */
-		query.append("SELECT * FROM trans_db WHERE status='submitted' OR status='matched' AND from_currency='" + params.get("to_currency") +"' AND to_currency='" + params.get("from_currency") + "' ");
-		query.append("AND reputation>=" + params.get("reputation_pref") + " AND reputation_pref<=" + params.get("reputation") + " AND location='" + params.get("location") + "' ");
-		query.append("AND trans_pref<=" + params.get("num_of_trans") + " AND num_of_trans>=" + params.get("trans_pref") + " AND trans_time=" + params.get("trans_time") + " ");
+		query.append("SELECT * FROM trans_db WHERE ( status='submitted' OR status='matched' ) AND ( from_currency='" + params.get("to_currency") +"' AND to_currency='" + params.get("from_currency") + "' ) ");
+		query.append("AND ( reputation>=" + params.get("reputation_pref") + " AND reputation_pref<=" + params.get("reputation") + " AND location='" + params.get("location") + "' ");
+		query.append("AND trans_pref<=" + params.get("num_of_trans") + " AND num_of_trans>=" + params.get("trans_pref") + " AND trans_time=" + params.get("trans_time") + " ) ");
 		query.append("AND ( (cash=" + params.get("cash") + " AND cash=true) OR (bank_wire=" + params.get("bank_wire") + " AND bank_wire=true) OR (paypal=" + params.get("paypal") + " ");
 		query.append("AND paypal=true) OR (cash_deposit=" + params.get("cash_deposit") + " AND cash_deposit=true) OR (other=" + params.get("other") + " AND other=true) ) AND " + role + "!='' ");
-		query.append("AND " + role + "!='" + params.get("email") + "' AND " + params.get("role") + "='' ORDER BY abs(amount - " + convertedAmount +") ASC");
+		query.append("AND " + role + "!='" + params.get("email") + "' AND " + params.get("role") + "='' AND owner!='" + params.get("email") + "' ORDER BY abs(amount - " + convertedAmount +") ASC");
 		System.out.println(query); /* Print used for debugging purposes. */
 		
 		/* Creates a prepared statement and executes the query. */
@@ -53,7 +54,8 @@ public class Ladar {
 			result.append(rs.getInt("num_of_trans") + ";");
 			result.append(rs.getInt("trans_time") + ";");
 			result.append(rs.getInt("trans_id") + "/");
-			String update = "UPDATE trans_db SET match_trans_id = " + rs.getInt("trans_id") + " WHERE owner='" + params.get("email") + "' AND trans_id=" + params.get("trans_id");
+			String update = "UPDATE trans_db SET match_trans_id=" + rs.getInt("trans_id") + " WHERE owner='" + params.get("email") + "' AND trans_id=" + params.get("trans_id");
+			System.out.println("update statement: " + update);
 			PreparedStatement myUpdate = conn.prepareStatement(update);
 			myUpdate.execute();
 			myUpdate.close();
@@ -95,7 +97,78 @@ public class Ladar {
 	 * @throws SQLException
 	 */
 	private static String acceptMatch(Connection conn, Map<String, String> params) throws SQLException {
+		/* Finds the transaction owned by the accepting user. */
+		String body = "";
 		StringBuilder result = new StringBuilder();
+		String query = "SELECT * from trans_db WHERE trans_id=" + params.get("trans_id") + " AND owner='" + params.get("email") + "'";
+		PreparedStatement pstmt = conn.prepareStatement(query);
+		ResultSet rs = pstmt.executeQuery();
+		
+		/* Checks to make sure the transaction was found. */
+		if(rs.next()) {
+			/* Updates the transactions status to matched. */
+			String update = "UPDATE trans_db SET status='matched' WHERE trans_id=" + rs.getInt("trans_id");
+			PreparedStatement updateStatement = conn.prepareStatement(update);
+			updateStatement.execute();
+			
+			/* Finds the matching transaction that was accepted. */
+			String matchQuery = "SELECT * FROM trans_db WHERE trans_id=" + rs.getInt("match_trans_id");
+			PreparedStatement matchStatement = conn.prepareStatement(matchQuery);
+			ResultSet rs2 = matchStatement.executeQuery();
+			
+			/* Checks to make sure the transaction was found. */
+			if(rs2.next()) {
+				if(rs2.getString("status").trim().equals("submitted")) {
+					result.append("submitted");
+					// PreparedStatement matchUpdate = conn.prepareStatement("UPDATE trans_db SET match_trans_id")
+					/* Send email notification to owner of accepted transaction. */
+					// body = "Another user has accepted your transaction offer. Please logon to your"
+					// + "ladar.co account to view the details and take further action.";
+					// GmailSender.send(rs2.getString("owner").trim(), "Transaction Accepted", body);
+				} else if(rs2.getString("status").trim().equals("matched")) {
+					result.append("matched");
+					/* Sets the status of both transactions to pending. */
+					String updateStatus = "UPDATE trans_db SET status='pending' WHERE trans_id=" + rs.getInt("trans_id") + " OR trans_id=" + rs2.getInt("trans_id");
+					conn.prepareStatement(updateStatus).execute();
+					
+					/* Notify both users of the completed match and prompt the seller to bitpay. */
+					// if(rs2.getString("seller").trim().equals(rs2.getString("owner").trim())) {
+					// 	body = "Both users have accepted the transaction, the match is a success! "
+					// 	+ "Please log on to ladar.co and submit the transaction fee to recieve the "
+					// 	+ " other user's contact information. ";
+					// 	GmailSender.send(rs2.getString("owner").trim(), "Match Successful!", body);
+					// 	body = "Both users have accepted the transaction, the match is a success! "
+					// 	+ "The contact information for the other user will be released when they have "
+					// 	+ "submitted the transaction fee.";
+					// 	GmailSender.send(params.getParameter("email").trim(), "Match Successful!", body);
+					// } else if(rs2.getString("buyer").trim().equals(rs2.getString("owner").trim())) {
+					// 	body = "Both users have accepted the transaction, the match is a success! "
+					// 	+ "Please log on to ladar.co and submit the transaction fee to recieve the "
+					// 	+ " other user's contact information. ";
+					// 	GmailSender.send(params.getParameter("email").trim(), "Match Successful!", body);
+					// 	body = "Both users have accepted the transaction, the match is a success! "
+					// 	+ "The contact information for the other user will be released when they have "
+					// 	+ "submitted the transaction fee.";
+					// 	GmailSender.send(rs2.getString("owner").trim(), "Match Successful!", body);
+					// }
+					
+					
+					/* Change status of both transactions to complete. */
+					String updateStatus2 = "UPDATE trans_db SET status='complete' WHERE trans_id=" + rs.getInt("trans_id") + " OR trans_id=" + rs2.getInt("trans_id");
+					conn.prepareStatement(updateStatus2).execute();
+					
+					/* Move the transactions to the completed transactions database. IMPLEMENT LATER. */
+				}
+			}
+
+			rs2.close();
+			updateStatement.close();
+			matchStatement.close();
+
+		}
+
+		rs.close();
+		pstmt.close();
 		
 		return result.toString();
 	}
@@ -112,6 +185,7 @@ public class Ladar {
 	private static String declineMatch(Connection conn, Map<String, String> params) throws SQLException {
 		StringBuilder result = new StringBuilder();
 		String query = "SELECT * FROM trans_db WHERE owner='" + params.get("email") + "' AND trans_id=" + params.get("trans_id");
+		System.out.println(query);
 		PreparedStatement pstmt = conn.prepareStatement(query);
 		ResultSet rs = pstmt.executeQuery();
 		
@@ -119,9 +193,11 @@ public class Ladar {
 		if(rs.next()) {
 			/* Assigns the appropriate role search parameter. */
 			String role = "";
-			if(rs.getString("buyer").equals(params.get("email"))) {
+			System.out.println(rs.getString("buyer"));
+			System.out.println(rs.getString("seller"));
+			if(rs.getString("buyer").trim().equals(params.get("email").trim())) {
 				role = "buyer";
-			} else if(rs.getString("seller").equals(params.get("email"))) {
+			} else if(rs.getString("seller").trim().equals(params.get("email").trim())) {
 				role = "seller";
 			}
 			
